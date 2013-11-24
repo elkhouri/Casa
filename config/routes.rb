@@ -1,11 +1,14 @@
 Casa::Application.routes.draw do
+  resources :users 
+  resources :sessions, only: [:new, :create, :destroy]
   root 'welcome#index'
   match '/signup', to: 'users#new', via: 'get'
   match '/feedback', to: 'welcome#feedback', via: 'get'
   match '/home', to: 'welcome#home', via: 'get'
   match '/contact', to: 'welcome#contact', via: 'get'
-  resources :users 
-  
+  match '/signin',  to: 'sessions#new',         via: 'get' 
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
