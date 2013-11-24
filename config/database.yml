@@ -48,7 +48,7 @@ test:
   encoding: unicode
   database: casa_test
   pool: 5
-  username: casa
+#  username: casa
   password:
 
 production:
