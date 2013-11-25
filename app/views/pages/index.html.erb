@@ -1,47 +1,32 @@
-<% provide(:title, 'Sign in') %>
-<style>
-  .form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0 auto;
-  }
-  .form-signin .form-signin-heading,
-  .form-signin .checkbox {
-    margin-bottom: 10px;
-  }
-  .form-signin .checkbox {
-    font-weight: normal;
-  }
-  .form-signin .form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-            box-sizing: border-box;
-  }
-  .form-signin .form-control:focus {
-    z-index: 2;
-  }
-  .form-signin input[type="text"] {
-    margin-bottom: -1px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-</style>
-<form class="form-signin" action="home.html">
-  <h2 class="form-signin-heading">Please sign in</h2>
-  <input type="text" class="form-control" placeholder="Email address" autofocus>
-  <input type="password" class="form-control" placeholder="Password">
-  <label class="checkbox">
-    <input type="checkbox" value="remember-me"> Remember me
-  </label>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-</form>
-
+<% provide(:title, 'Home') %>
+<div class='center jumbotron'> Your Kids </div>
+<table class="col-md-8 table table-borered">
+  <tr>
+    <th>Picture</th>
+    <th>Info</th>
+    <th>Actions</th>
+  <tr>
+    <td><%= image_tag("girl1_.jpg") %></td>
+    <td>
+      Jane Doe
+      <ul>
+        <li>8</li>
+        <li>Grade 3</li>
+      </ul>
+    </td>
+    <td><div class="btn btn-default">Check in</div><br>
+    <div class="btn btn-default">Check out</div></td>
+  </tr>
+  <tr>
+    <td><%= image_tag("girl2_.jpg") %></td>
+    <td>
+      Jane Doe
+      <ul>
+        <li>9</li>
+        <li>Grade 4</li>
+      </ul>
+    </td>
+    <td><div class="btn btn-default">Check in</div><br>
+    <div class="btn btn-default">Check out</div></td>
+  </tr>
+</table>

@@ -5,7 +5,6 @@ Casa::Application.routes.draw do
   root 'pages#index'
   match '/signup', to: 'users#new', via: 'get'
   match '/feedback', to: 'pages#feedback', via: 'get'
-  match '/home', to: 'pages#home', via: 'get'
   match '/contact', to: 'pages#contact', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get' 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
