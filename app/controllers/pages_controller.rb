@@ -1,10 +1,8 @@
 class PagesController < ApplicationController
-  before_action :signed_in_user, only:[:feedback, :contact]
+  before_action :signed_in_user
   
   def index
-    if !signed_in?
-      redirect_to signin_url
-    end
+    redirect_to current_user
   end
   
   def feedback
