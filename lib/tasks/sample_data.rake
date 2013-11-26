@@ -7,11 +7,16 @@ namespace :db do
 end
 
 def make_users
-    admin = User.create!(name: "Example User",
+    admin = User.create!(name: "Example Admin",
                  ID_num: '123456',
                  password: "foobar",
                  password_confirmation: "foobar",
                  admin: true)
+    user = User.create!(name: "Example User",
+                 ID_num: '12345',
+                 password: "foobar",
+                 password_confirmation: "foobar",
+                 admin: false)
     30.times do |n|
       name  = Faker::Name.name
       id_num = SecureRandom.base64
