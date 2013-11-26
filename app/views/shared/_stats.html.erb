@@ -1,0 +1,15 @@
+<% @user ||= current_user %>
+<div class="stats">
+  <a href="<%= child_user_path(@user) %>">
+    <strong id="child" class="stat">
+      <%= @user.children.count %>
+    </strong>
+    Children
+  </a>
+  <a href="<%= parent_user_path(@user) %>">
+    <strong id="parent" class="stat">
+      <%= @user.parents.count %>
+    </strong>
+    Parents
+  </a>
+</div>

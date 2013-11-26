@@ -1,4 +1,11 @@
 class User < ActiveRecord::Base
+  has_many :relationships, foreign_key: "parent_id", dependent: :destroy
+  has_many :children, through: :relationships
+  has_many :reverse_relationships, foreign_key: "child_id", 
+                                   class_name: "Relationship",
+                                   dependent: :destroy
+  has_many :parents, through: :reverse_relationships
+
   before_create :create_remember_token
   validates :name, presence:true
   validates :ID_num, presence:true, uniqueness:true
@@ -12,6 +19,17 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
   
+  def parents?(other_user)
+    relationships.find_by(child_id: other_user.id)
+  end
+
+  def parents!(other_user)
+    relationships.create!(child_id: other_user.id)
+  end
+  
+  def unparent!(other_user)
+    relationships.find_by(child_id: other_user.id).destroy!
+  end
   private
   
   def create_remember_token

@@ -1,0 +1,2 @@
+$("#parent_form").html("<%= escape_javascript(render('users/parent')) %>")
+$("#children").html('<%= @user.children.count %>')

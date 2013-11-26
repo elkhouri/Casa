@@ -1,8 +1,22 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:index, :edit, :update, :destroy, :parent, :child]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
   
+  def parent
+    @title = "Parents"
+    @user = User.find(params[:id])
+    @users = @user.parents.paginate(page: params[:page])
+    render 'show_parent'
+  end
+
+  def child
+    @title = "Children"
+    @user = User.find(params[:id])
+    @users = @user.children.paginate(page: params[:page])
+    render 'show_parent'
+  end
+
   def show
     @user = User.find(params[:id])
   end

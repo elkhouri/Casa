@@ -1,5 +1,7 @@
 <% provide(:title, @user.name) %>
 <div class='center jumbotron'> Your Kids </div>
+<%= render 'parent_form' if signed_in? %>
+<%= render 'shared/stats' %>
 <table class="col-md-8 table table-borered">
   <tr>
     <th>Picture</th>

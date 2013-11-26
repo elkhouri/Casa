@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125054340) do
+ActiveRecord::Schema.define(version: 20131126085728) do
+
+  create_table "relationships", force: true do |t|
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "relationships", ["child_id"], name: "index_relationships_on_child_id"
+  add_index "relationships", ["parent_id", "child_id"], name: "index_relationships_on_parent_id_and_child_id", unique: true
+  add_index "relationships", ["parent_id"], name: "index_relationships_on_parent_id"
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -20,10 +31,21 @@ ActiveRecord::Schema.define(version: 20131125054340) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",                  default: false
+    t.string   "role"
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   add_index "users", ["ID_num"], name: "index_users_on_ID_num", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

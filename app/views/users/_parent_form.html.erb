@@ -1,0 +1,9 @@
+<% unless current_user?(@user) %>
+  <div id="parent_form">
+    <% if current_user.parents?(@user) %>
+        <%= render 'unparent' %>
+	  <% else %>
+	      <%= render 'parent' %>
+	  <% end %>
+  </div>
+<% end %>
