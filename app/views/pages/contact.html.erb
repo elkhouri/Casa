@@ -2,7 +2,7 @@
 <style>
 .form-horizontal .form-group { margin-bottom: 2px;}
 </style>
-<p> <% @user.name %>
+<p> <%= @user.name %><br>
 1999 Callie Drive<br>
 San Diego, CA 92102<br>
 (858) 123-4567<br>
@@ -44,6 +44,10 @@ maria@gmail.com<br>
       <div class="modal-body">
         <form class='form-horizontal'>
           <div class='form-group'>
+            <label>Name (Nombre)</label>
+            <input class='form-control'>
+          </div>
+          <div class='form-group'>
             <label>Street (Calle)</label>
             <input class='form-control'>
           </div>
@@ -52,7 +56,7 @@ maria@gmail.com<br>
             <input class='form-control'>
           </div>
           <div class='form-group'>
-            <label>State</label>
+            <label>State (Estado)</label>
             <input class='form-control'>
           </div>
           <div class='form-group'>

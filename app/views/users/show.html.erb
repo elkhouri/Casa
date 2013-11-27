@@ -1,34 +1,9 @@
-<% provide(:title, @user.name) %>
-<div class='center jumbotron'> Your Kids </div>
+<% provide(:title, @title) %>
 <%= render 'parent_form' if signed_in? %>
-<%= render 'shared/stats' %>
-<table class="col-md-8 table table-borered">
-  <tr>
-    <th>Picture</th>
-    <th>Info</th>
-    <th>Actions</th>
-  <tr>
-    <td><%= image_tag("girl1_.jpg") %></td>
-    <td>
-      Jane Doe
-      <ul>
-        <li>8</li>
-        <li>Grade 3</li>
-      </ul>
-    </td>
-    <td><div class="btn btn-default">Check in</div><br>
-    <div class="btn btn-default">Check out</div></td>
-  </tr>
-  <tr>
-    <td><%= image_tag("boy1.jpg") %></td>
-    <td>
-      John Doe
-      <ul>
-        <li>9</li>
-        <li>Grade 4</li>
-      </ul>
-    </td>
-    <td><div class="btn btn-default">Check in</div><br>
-    <div class="btn btn-default">Check out</div></td>
-  </tr>
-</table>
+<h3>Children</h3>
+<% if @children.any? %>
+<div class='row'>
+  <%= render @children %>
+</div>
+<%= will_paginate @children%>
+<% end %>
