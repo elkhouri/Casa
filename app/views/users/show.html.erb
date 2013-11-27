@@ -1,4 +1,9 @@
 <% provide(:title, @title) %>
+<style>
+.popover{
+    width:100%; 
+}
+</style>
 <%= render 'parent_form' if signed_in? %>
 <h3>Children</h3>
 <% if @children.any? %>
@@ -6,4 +11,13 @@
   <%= render @children %>
 </div>
 <%= will_paginate @children%>
+<script>
+  $('[rel=popover]').popover({placement:'bottom', html:true, trigger:'hover'})
+  $('#signin_button').click(function(){
+    alert('You\'ve Signed In!')
+  })
+  $('#signout_button').click(function(){
+    alert('You\'ve Signed Out!')
+  })
+</script>
 <% end %>
