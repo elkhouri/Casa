@@ -1,3 +1,13 @@
+<% if current_user.admin? %>
+  <li>
+  <%= gravatar_for user, size: 52 %>
+  <%= link_to user.name, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+  </li>
+<% else %>
 <div class='col-sm-3'>
     <%= gravatar_thumbnail user, size:300 %>
     <div class='caption text-center'>
@@ -6,3 +16,4 @@
         <button id='signout_button' class="btn btn-warning">Check out</button>
     </div>
 </div>
+<% end %>

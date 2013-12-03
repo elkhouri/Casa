@@ -1,10 +1,27 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
-
-<%= will_paginate %>
-
-<ul class="users">
-  <%= render @users %>
+<ul class="nav nav-tabs nav-justified">
+  <li class='active'><a href='#volunteers' data-toggle="tab">Volunteers</a></li>
+  <li><a href='#students' data-toggle="tab">Students</a></li>
+  <li><a href='#parents' data-toggle="tab">Parents</a></li>
 </ul>
-
-<%= will_paginate %>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="volunteers">
+    <ul class="users">
+      <%= render @users %>
+    </ul>
+    <%= will_paginate %>
+  </div>
+  <div class="tab-pane fade" id="students">
+    <ul class="users">
+      <%= render @users %>
+    </ul>
+    <%= will_paginate %>
+  </div>
+  <div class="tab-pane fade" id="parents">
+    <ul class="users">
+      <%= render @users %>
+    </ul>
+    <%= will_paginate %>
+  </div>
+</div>
