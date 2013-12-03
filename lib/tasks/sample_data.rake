@@ -19,7 +19,7 @@ def make_users
                  admin: false)
     30.times do |n|
       name  = Faker::Name.name
-      id_num = SecureRandom.base64
+      id_num = SecureRandom.hex
       password  = "password"
       User.create!(name: name,
                    ID_num: id_num,
