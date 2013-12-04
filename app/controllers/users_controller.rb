@@ -25,7 +25,9 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.paginate(page: params[:page])
+    @parents = Parent.paginate(page: params[:page])
+    @students = Student.paginate(page: params[:page])
+    @volunteers = Volunteer.paginate(page: params[:page])
   end
   
   def new

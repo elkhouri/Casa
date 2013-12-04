@@ -8,20 +8,20 @@
 <div class="tab-content">
   <div class="tab-pane fade in active" id="volunteers">
     <ul class="users">
-      <%= render @users %>
+      <%= render @volunteers %>
     </ul>
-    <%= will_paginate %>
+    <%= will_paginate @parents%>
   </div>
   <div class="tab-pane fade" id="students">
     <ul class="users">
-      <%= render @users %>
+      <%= render @students %>
     </ul>
-    <%= will_paginate %>
+    <%= will_paginate @students%>
   </div>
   <div class="tab-pane fade" id="parents">
     <ul class="users">
-      <%= render @users %>
+      <%= render @parents %>
     </ul>
-    <%= will_paginate %>
+    <%= will_paginate @parents%>
   </div>
 </div>
