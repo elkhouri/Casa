@@ -6,7 +6,12 @@
 </style>
 <% if current_user.admin? %>
   <h3>Admin</h3>
+  
+<% elsif current_user.is_a?(Student)%>
+  <h3>Student</h3>
 
+<% elsif current_user.is_a?(Volunteer)%>
+  <h3>Volunteer</h3>
   
 <% else %>
   <%= render 'parent_form' if signed_in? %>

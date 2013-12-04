@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(ID_num: params[:session][:ID_num])
+    parent = Parent.find_by(ID_num: params[:session][:ID_num])
     if user && user.authenticate(params[:session][:password])
       sign_in user
       redirect_back_or user

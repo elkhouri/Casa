@@ -17,14 +17,63 @@ def make_users
                  password: "foobar",
                  password_confirmation: "foobar",
                  admin: false)
-    30.times do |n|
+    parent =  Parent.create!(name: 'Example Parent',
+                            ID_num: '123',
+                            phone: Faker::PhoneNumber.phone_number,
+                            email: Faker::Internet.email,
+                            address: Faker::Address.street_address,
+                            password: 'foobar',
+                            password_confirmation: 'foobar')
+    student =  Student.create!(name: 'Example Student',
+                            ID_num: '456',
+                            phone: Faker::PhoneNumber.phone_number,
+                            email: Faker::Internet.email,
+                            address: Faker::Address.street_address,
+                            password: 'foobar',
+                            password_confirmation: 'foobar')
+    volunteer =  Volunteer.create!(name: 'Example Volunteer',
+                            ID_num: '789',
+                            phone: Faker::PhoneNumber.phone_number,
+                            email: Faker::Internet.email,
+                            address: Faker::Address.street_address,
+                            password: 'foobar',
+                            password_confirmation: 'foobar')
+
+    10.times do |n|
       name  = Faker::Name.name
       id_num = SecureRandom.hex
       password  = "password"
-      User.create!(name: name,
-                   ID_num: id_num,
-                   password: password,
-                   password_confirmation: password)
+      Parent.create!(name: name,
+                     ID_num: id_num,
+                     phone: Faker::PhoneNumber.phone_number,
+                     email: Faker::Internet.email,
+                     address: Faker::Address.street_address,
+                     password: password,
+                     password_confirmation: password)
+    end
+    10.times do |n|
+      name  = Faker::Name.name
+      id_num = SecureRandom.hex
+      password  = "password"
+      Student.create!(name: name,
+                     ID_num: id_num,
+                     phone: Faker::PhoneNumber.phone_number,
+                     email: Faker::Internet.email,
+                     address: Faker::Address.street_address,
+                     password: password,
+                     password_confirmation: password)
+    end
+    10.times do |n|
+      name  = Faker::Name.name
+      id_num = SecureRandom.hex
+      password  = "password"
+      Volunteer.create!(name: name,
+                     ID_num: id_num,
+                     phone: Faker::PhoneNumber.phone_number,
+                     email: Faker::Internet.email,
+                     address: Faker::Address.street_address,
+                     password: password,
+                     password_confirmation: password)
     end
 end
 

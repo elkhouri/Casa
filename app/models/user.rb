@@ -35,4 +35,13 @@ class User < ActiveRecord::Base
   def create_remember_token
     self.remember_token = User.encrypt(User.new_remember_token)
   end
+  
+  def self.inherited(child)
+  child.instance_eval do
+    def model_name
+      User.model_name
+    end
+  end
+  super
+  end
 end
