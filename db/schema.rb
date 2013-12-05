@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131204095241) do
+ActiveRecord::Schema.define(version: 20131205045248) do
 
   create_table "relationships", force: true do |t|
     t.integer  "parent_id"
@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20131204095241) do
     t.string   "address"
     t.string   "interest"
     t.string   "specialization"
+    t.string   "session"
+    t.string   "note"
+    t.string   "source"
   end
 
   add_index "users", ["ID_num"], name: "index_users_on_ID_num", unique: true

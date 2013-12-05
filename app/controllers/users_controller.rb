@@ -16,12 +16,22 @@ class UsersController < ApplicationController
     @users = @user.children.paginate(page: params[:page])
     render 'show_parent'
   end
+  
+  def stats
+    @title = "Statistics"
+  end
 
   def show
     @user = User.find(params[:id])
     @users = User.paginate(page: params[:page])
     @title = @user.name
     @children = @user.children.paginate(page: params[:page])
+    if current_user.admin?
+      @parents = Parent.paginate(page: params[:page])
+      @students = Student.paginate(page: params[:page])
+      @volunteers = Volunteer.paginate(page: params[:page])
+      render :admin_show
+    end
   end
   
   def index

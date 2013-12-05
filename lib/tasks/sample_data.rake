@@ -26,6 +26,8 @@ def make_users
                             password_confirmation: 'foobar')
     student =  Student.create!(name: 'Example Student',
                             ID_num: '456',
+                            grade: rand(1..12),
+                            session: [:Tu, :Th, :TuTh].sample,
                             phone: Faker::PhoneNumber.phone_number,
                             email: Faker::Internet.email,
                             address: Faker::Address.street_address,
@@ -35,16 +37,31 @@ def make_users
                             ID_num: '789',
                             phone: Faker::PhoneNumber.phone_number,
                             email: Faker::Internet.email,
+                            specialization: Faker::Company.catch_phrase,
+                            interest: Faker::Company.bs,
+                            session: [:Tu, :Th, :TuTh].sample,
                             address: Faker::Address.street_address,
+                            note: Faker::Lorem.sentence,
+                            source: Faker::Lorem.word,
                             password: 'foobar',
                             password_confirmation: 'foobar')
 
     10.times do |n|
-      name  = Faker::Name.name
-      id_num = SecureRandom.hex
       password  = "password"
-      Parent.create!(name: name,
-                     ID_num: id_num,
+      Parent.create!(name: Faker::Name.name,
+                     ID_num: SecureRandom.hex,
+                     phone: Faker::PhoneNumber.phone_number,
+                     email: Faker::Internet.email,
+                     address: Faker::Address.street_address,
+                     password: password,
+                     password_confirmation: password)
+    end
+    20.times do |n|
+      password  = "password"
+      Student.create!(name: Faker::Name.name,
+                     ID_num: SecureRandom.hex,
+                     grade: rand(1..12),
+                     session: [:Tu, :Th, :TuTh].sample,
                      phone: Faker::PhoneNumber.phone_number,
                      email: Faker::Internet.email,
                      address: Faker::Address.street_address,
@@ -52,26 +69,17 @@ def make_users
                      password_confirmation: password)
     end
     10.times do |n|
-      name  = Faker::Name.name
-      id_num = SecureRandom.hex
       password  = "password"
-      Student.create!(name: name,
-                     ID_num: id_num,
+      Volunteer.create!(name: Faker::Name.name,
+                     ID_num: SecureRandom.hex,
+                     specialization: Faker::Company.catch_phrase,
+                     interest: Faker::Company.bs,
+                     session: [:Tu, :Th, :TuTh].sample,
                      phone: Faker::PhoneNumber.phone_number,
                      email: Faker::Internet.email,
                      address: Faker::Address.street_address,
-                     password: password,
-                     password_confirmation: password)
-    end
-    10.times do |n|
-      name  = Faker::Name.name
-      id_num = SecureRandom.hex
-      password  = "password"
-      Volunteer.create!(name: name,
-                     ID_num: id_num,
-                     phone: Faker::PhoneNumber.phone_number,
-                     email: Faker::Internet.email,
-                     address: Faker::Address.street_address,
+                     note: Faker::Lorem.sentence,
+                     source: Faker::Lorem.word,
                      password: password,
                      password_confirmation: password)
     end

@@ -23,21 +23,45 @@
               </div>
             </div>
             <div class='form-group'>
+              <label class='control-label col-md-2'>ID</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= volunteer.ID_num %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
               <label class='control-label col-md-2'>Phone</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::PhoneNumber.phone_number %>'></input>
+                <input class='form-control' value='<%= volunteer.phone %>'></input>
               </div>
             </div>
             <div class='form-group'>
               <label class='control-label col-md-2'>Email</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::Internet.email %>'></input>
+                <input class='form-control' value='<%= volunteer.email %>'></input>
               </div>
             </div>
             <div class='form-group'>
               <label class='control-label col-md-2'>Address</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::Address.street_address %>'></input>
+                <input class='form-control' value='<%= volunteer.address %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class='control-label col-md-2'>Specialization</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= volunteer.specialization %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class='control-label col-md-2'>Interest</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= volunteer.interest %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class='control-label col-md-2'>Note</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= volunteer.note %>'></input>
               </div>
             </div>
           </form>
@@ -49,14 +73,4 @@
       </div>
     </div>
   </div>
-  
-<% else %>
-<div class='col-sm-3'>
-    <%= gravatar_thumbnail volunteer, size:300 %>
-    <div class='caption text-center'>
-      <h3><%= volunteer.name %></h3>
-        <button id='signin_button' class="btn btn-primary">Check in</button>
-        <button id='signout_button' class="btn btn-warning">Check out</button>
-    </div>
-</div>
 <% end %>

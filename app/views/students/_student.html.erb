@@ -23,21 +23,33 @@
               </div>
             </div>
             <div class='form-group'>
+              <label class='control-label col-md-2'>ID</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= student.ID_num %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
+              <label class='control-label col-md-2'>Grade</label>
+              <div class='col-md-10'>
+                <input class='form-control' value='<%= student.grade %>'></input>
+              </div>
+            </div>
+            <div class='form-group'>
               <label class='control-label col-md-2'>Phone</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::PhoneNumber.phone_number %>'></input>
+                <input class='form-control' value='<%= student.phone  %>'></input>
               </div>
             </div>
             <div class='form-group'>
               <label class='control-label col-md-2'>Email</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::Internet.email %>'></input>
+                <input class='form-control' value='<%= student.email %>'></input>
               </div>
             </div>
             <div class='form-group'>
               <label class='control-label col-md-2'>Address</label>
               <div class='col-md-10'>
-                <input class='form-control' value='<%= Faker::Address.street_address %>'></input>
+                <input class='form-control' value='<%= student.address  %>'></input>
               </div>
             </div>
           </form>
