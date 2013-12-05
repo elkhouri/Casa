@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       render 'show_volunteer'
     elsif current_user.is_a?(Parent)
       @children = @user.children.paginate(page: params[:page])
-      render action: 'show_parent'
+      render 'show_parent'
     end
   end
   

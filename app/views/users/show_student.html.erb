@@ -1,3 +1,25 @@
 <% provide(:title, @title) %>
-<h3>Student</h3>
-
+<div class='row'>
+  <div class='col-md-12'><h3><%= @user.name %></h3></div>
+</div>
+<div class='row'>
+  <div class='col-md-3'>
+    <%= gravatar_for @user, size:250 %>
+  </div>
+  <div class='col-md-9'>
+  <form>
+    <div class='form-group'>
+      <label>Work Brought</label>
+      <select multiple class='form-control' size=6>
+        <option>Math</option>
+        <option>English</option>
+        <option>History</option>
+        <option>Science</option>
+        <option>Computer</option>
+      </select>
+      <button id='signin_button' class="btn btn-primary">Check in</button>
+      <button id='signout_button' class="btn btn-warning">Check out</button>
+    </div>
+  </form>
+  </div>
+</div>
