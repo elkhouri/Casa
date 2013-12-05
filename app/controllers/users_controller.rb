@@ -24,9 +24,16 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @users = User.paginate(page: params[:page])
     @title = @user.name
-    @children = @user.children.paginate(page: params[:page])
+    
+    if current_user.is_a?(Student)
+      render 'show_student'
+    elsif current_user.is_a?(Volunteer)
+      render 'show_volunteer'
+    elsif current_user.is_a?(Parent)
+      @children = @user.children.paginate(page: params[:page])
+      render action: 'show_parent'
+    end
   end
   
   def index

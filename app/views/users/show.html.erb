@@ -14,22 +14,5 @@
   <h3>Volunteer</h3>
   
 <% else %>
-  <%= render 'parent_form' if signed_in? %>
-  <h3>Children</h3>
-  <% if @children.any? %>
-    <div class='row'>
-      <%= render @children %>
-    </div>
-    <%= will_paginate @children%>
-  <% end %>
 
-<script>
-  $('[rel=popover]').popover({placement:'bottom', html:true, trigger:'hover'})
-  $('#signin_button').click(function(){
-    alert('You\'ve Signed In!')
-  })
-  $('#signout_button').click(function(){
-    alert('You\'ve Signed Out!')
-  })
-</script>
 <% end %>
