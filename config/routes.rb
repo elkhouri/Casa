@@ -1,7 +1,7 @@
 Casa::Application.routes.draw do
   resources :users do
     member do
-      get :parent, :child
+      get :parent, :child, :profile
     end
   end
 
@@ -15,7 +15,8 @@ Casa::Application.routes.draw do
   match '/contact', to: 'pages#contact', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get' 
   match '/signout', to: 'sessions#destroy',     via: 'delete'
-
+  match '/admin', to: 'pages#admin', via: 'get'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

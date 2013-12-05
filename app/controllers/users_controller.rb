@@ -20,18 +20,17 @@ class UsersController < ApplicationController
   def stats
     @title = "Statistics"
   end
-
+  
+  def profile
+    @user = User.find(params[:id])
+    @title = @user.name
+  end
+  
   def show
     @user = User.find(params[:id])
     @users = User.paginate(page: params[:page])
     @title = @user.name
     @children = @user.children.paginate(page: params[:page])
-    if current_user.admin?
-      @parents = Parent.paginate(page: params[:page])
-      @students = Student.paginate(page: params[:page])
-      @volunteers = Volunteer.paginate(page: params[:page])
-      render :admin_show
-    end
   end
   
   def index

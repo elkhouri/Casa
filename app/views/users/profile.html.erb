@@ -1,0 +1,49 @@
+<% provide :title, @title %>
+<div class='row'><h3> <%= @user.name %> </h3></div>
+
+<% if not @user.grade.nil? %> 
+<div class='row'>
+<div class='col-xs-1'>Grade: </div>
+<div class='col-xs-11'> <%= @user.grade %> </div> 
+</div> <% end %>
+
+<div class='row'>
+<div class='col-xs-1'>ID: </div>
+<div class='col-xs-11'><%= @user.ID_num %></div>
+</div>
+
+<div class='row'>
+<div class='col-xs-1'>Address: </div>
+<div class='col-xs-11'><%= @user.address %></div>
+</div>
+
+<div class='row'>
+<div class='col-xs-1'>Phone: </div>
+<div class='col-xs-11'><%= @user.phone %></div>
+</div>
+
+<div class='row'>
+<div class='col-xs-1'>Email: </div>
+<div class='col-xs-11'><%= @user.email %></div>
+</div>
+
+<% if not @user.session.nil? %> <div class='row'>
+<div class='col-xs-1'>Session: </div>
+<div class='col-xs-11'><%= @user.session %></div>
+</div> <% end %>
+
+<% if not @user.specialization.nil? %> <div class='row'>
+<div class='col-xs-1'>Specialization: </div>
+<div class='col-xs-11'><%= @user.specialization %></div>
+</div> <% end %>
+
+<% if not @user.interest.nil? %> <div class='row'>
+<div class='col-xs-1'>Interests: </div>
+<div class='col-xs-11'><%= @user.interest %></div>
+</div> <% end %>
+
+<% if not @user.note.nil? %> <div class='row'>
+<div class='col-xs-1'>Notes: </div>
+<div class='col-xs-11'><%= @user.note %></div>
+</div> <% end %>
+

@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   before_action :signed_in_user
   
   def index
-    redirect_to current_user
+    if current_user.admin?
+      redirect_to admin_path
+    else
+      redirect_to current_user
+    end
   end
   
   def feedback
@@ -10,5 +14,11 @@ class PagesController < ApplicationController
   
   def contact
     @user = current_user
+  end
+  
+  def admin
+    @parents = Parent.paginate(page: params[:page])
+    @students = Student.paginate(page: params[:page])
+    @volunteers = Volunteer.paginate(page: params[:page])
   end
 end
