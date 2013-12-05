@@ -14,7 +14,7 @@
               Account <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", contact_path %></li>
+              <li><%= link_to "Profile", profile_user_path(current_user) %></li>
               <li><%= link_to "Settings", edit_user_path(current_user) %></li>
               <li class="divider"></li>
               <li>

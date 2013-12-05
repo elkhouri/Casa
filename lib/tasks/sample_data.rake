@@ -2,6 +2,8 @@ namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     make_users
+  end
+  task relate: :environment do
     make_relationships
   end
 end
@@ -86,10 +88,8 @@ def make_users
 end
 
 def make_relationships
-  users = User.all
-  user = users.first
-  children = users[2..5]
-  parents = users[3..4]
-  children.each { |child| user.parents!(child) }
-  parents.each { |parent| parent.parents!(user) }
+  parent = Parent.first
+  students = Student.all
+  children = students[2..5]
+  children.each { |child| parent.parents!(child) }
 end

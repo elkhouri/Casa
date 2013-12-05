@@ -12,6 +12,10 @@ class PagesController < ApplicationController
   def feedback
   end
   
+  def stats
+    @title = "Statistics"
+  end
+  
   def contact
     @user = current_user
   end

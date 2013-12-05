@@ -1,4 +1,4 @@
-<li>
-<%= gravatar_for user, size: 52 %>
-<%= link_to user.name, profile_user_path(user) %>
-</li>
+<a href='<%=profile_user_path(user)%>' class="list-group-item">
+  <%= gravatar_for user, size: 52 %>
+  <%= user.name %>
+</a>

@@ -10,7 +10,7 @@ Casa::Application.routes.draw do
   
   root 'pages#index'
   match '/signup', to: 'users#new', via: 'get'
-  match '/stats', to: 'users#stats', via: 'get'
+  match '/stats', to: 'pages#stats', via: 'get'
   match '/feedback', to: 'pages#feedback', via: 'get'
   match '/contact', to: 'pages#contact', via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get' 

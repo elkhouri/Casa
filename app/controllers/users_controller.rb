@@ -17,10 +17,6 @@ class UsersController < ApplicationController
     render 'show_parent'
   end
   
-  def stats
-    @title = "Statistics"
-  end
-  
   def profile
     @user = User.find(params[:id])
     @title = @user.name
