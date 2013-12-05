@@ -1,5 +1,9 @@
 namespace :db do
   desc "Fill database with sample data"
+  task make: :environment do
+    make_users
+    make_relationships
+  end
   task populate: :environment do
     make_users
   end
@@ -9,16 +13,14 @@ namespace :db do
 end
 
 def make_users
-    admin = User.create!(name: "Example Admin",
+    admin = Admin.create!(name: "Example Admin",
                  ID_num: '123456',
+                 phone: Faker::PhoneNumber.phone_number,
+                 email: Faker::Internet.email,
+                 address: Faker::Address.street_address,
                  password: "foobar",
                  password_confirmation: "foobar",
                  admin: true)
-    user = User.create!(name: "Example User",
-                 ID_num: '12345',
-                 password: "foobar",
-                 password_confirmation: "foobar",
-                 admin: false)
     parent =  Parent.create!(name: 'Example Parent',
                             ID_num: '123',
                             phone: Faker::PhoneNumber.phone_number,

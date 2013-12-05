@@ -19,10 +19,5 @@ class PagesController < ApplicationController
   def contact
     @user = current_user
   end
-  
-  def admin
-    @parents = Parent.paginate(page: params[:page])
-    @students = Student.paginate(page: params[:page])
-    @volunteers = Volunteer.paginate(page: params[:page])
-  end
+
 end

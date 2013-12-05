@@ -14,7 +14,7 @@ module UsersHelper
     content = 'Grade: '+user.grade.to_s+'<br>Feedback:<br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id ipsum ut orci cursus dictum. Ut dictum scelerisque interdum'
     content_tag(:a, image_tag(gravatar_url, alt: user.name), 
                 class:'thumbnail', rel:'popover', title:user.name, :'data-content' => content,
-                href:user.id)
+                href:profile_user_path(user))
   end
   
 end

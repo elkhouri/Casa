@@ -22,6 +22,12 @@ class UsersController < ApplicationController
     @title = @user.name
   end
   
+  def admin
+    @parents = Parent.paginate(page: params[:page])
+    @students = Student.paginate(page: params[:page])
+    @volunteers = Volunteer.paginate(page: params[:page])
+  end
+  
   def show
     @user = User.find(params[:id])
     @title = @user.name
