@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205045248) do
+ActiveRecord::Schema.define(version: 20131205101158) do
 
   create_table "relationships", force: true do |t|
     t.integer  "parent_id"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20131205045248) do
   add_index "relationships", ["child_id"], name: "index_relationships_on_child_id"
   add_index "relationships", ["parent_id", "child_id"], name: "index_relationships_on_parent_id_and_child_id", unique: true
   add_index "relationships", ["parent_id"], name: "index_relationships_on_parent_id"
+
+  create_table "tutorages", force: true do |t|
+    t.integer  "volunteer_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

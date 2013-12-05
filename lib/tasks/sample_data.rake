@@ -91,7 +91,9 @@ end
 
 def make_relationships
   parent = Parent.first
+  volunteer = Volunteer.first
   students = Student.all
   children = students[2..5]
   children.each { |child| parent.parents!(child) }
+  children.each { |child| volunteer.teach!(child) }
 end

@@ -57,5 +57,9 @@
   <% elsif @user.is_a?(Student) %>
     <h4>Adults Authorized to drop off or pick up</h4>
     <%= render partial:'user_list', collection: @user.parents, as: :user %>
+  
+  <% elsif @user.is_a?(Volunteer) %>
+    <h4>Students</h4>
+    <%= render partial:'user_list', collection: @user.students, as: :user %>
   <% end %>
 </div>

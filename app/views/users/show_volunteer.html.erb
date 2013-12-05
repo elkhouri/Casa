@@ -1,3 +1,15 @@
 <% provide(:title, @title) %>
-<h3>Volunteer</h3>
-
+<div class='row'>
+  <div class='col-md-12'><h3><%= @user.name %></h3></div>
+</div>
+<div class='row'>
+  <div class='col-md-3'>
+    <%= gravatar_for @user, size:250 %>
+  </div>
+  <div class='col-md-9'>
+  <form>
+    <button id='signin_button' class="btn btn-primary">Check In</button>
+    <button id='signout_button' class="btn btn-warning">Check Out</button>
+  </form>
+  </div>
+</div>

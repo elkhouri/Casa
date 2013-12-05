@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   has_many :relationships, foreign_key: "parent_id", dependent: :destroy
-  has_many :children, through: :relationships
   has_many :reverse_relationships, foreign_key: "child_id", 
                                    class_name: "Relationship",
                                    dependent: :destroy
   has_many :parents, through: :reverse_relationships
+  has_many :children, through: :relationships
 
   before_create :create_remember_token
   validates :name, presence:true
