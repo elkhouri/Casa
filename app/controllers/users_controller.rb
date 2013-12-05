@@ -50,6 +50,7 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @title = 'Edit Profile'
   end
   
   def update
