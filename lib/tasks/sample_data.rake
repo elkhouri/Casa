@@ -14,31 +14,32 @@ end
 
 def make_users
     admin = Admin.create!(name: "Example Admin",
-                 ID_num: '123456',
+                 ID_num: '0000',
                  phone: Faker::PhoneNumber.phone_number,
                  email: Faker::Internet.email,
                  address: Faker::Address.street_address,
                  password: "foobar",
                  password_confirmation: "foobar",
                  admin: true)
-    parent =  Parent.create!(name: 'Example Parent',
-                            ID_num: '123',
-                            phone: Faker::PhoneNumber.phone_number,
-                            email: Faker::Internet.email,
-                            address: Faker::Address.street_address,
-                            password: 'foobar',
-                            password_confirmation: 'foobar')
     student =  Student.create!(name: 'Example Student',
-                            ID_num: '456',
+                            ID_num: '1111',
                             grade: rand(1..12),
                             session: [:Tu, :Th, :TuTh].sample,
                             phone: Faker::PhoneNumber.phone_number,
                             email: Faker::Internet.email,
                             address: Faker::Address.street_address,
                             password: 'foobar',
+                            password_confirmation: 'foobar')   
+    parent =  Parent.create!(name: 'Example Parent',
+                            ID_num: '2222',
+                            phone: Faker::PhoneNumber.phone_number,
+                            email: Faker::Internet.email,
+                            address: Faker::Address.street_address,
+                            password: 'foobar',
                             password_confirmation: 'foobar')
+
     volunteer =  Volunteer.create!(name: 'Example Volunteer',
-                            ID_num: '789',
+                            ID_num: '3333',
                             phone: Faker::PhoneNumber.phone_number,
                             email: Faker::Internet.email,
                             specialization: Faker::Company.catch_phrase,
@@ -53,7 +54,7 @@ def make_users
     10.times do |n|
       password  = "password"
       Parent.create!(name: Faker::Name.name,
-                     ID_num: SecureRandom.hex,
+                     ID_num: rand.to_s[2..5],
                      phone: Faker::PhoneNumber.phone_number,
                      email: Faker::Internet.email,
                      address: Faker::Address.street_address,
@@ -63,7 +64,7 @@ def make_users
     20.times do |n|
       password  = "password"
       Student.create!(name: Faker::Name.name,
-                     ID_num: SecureRandom.hex,
+                     ID_num: rand.to_s[2..5],
                      grade: rand(1..12),
                      session: [:Tu, :Th, :TuTh].sample,
                      phone: Faker::PhoneNumber.phone_number,
@@ -75,7 +76,7 @@ def make_users
     10.times do |n|
       password  = "password"
       Volunteer.create!(name: Faker::Name.name,
-                     ID_num: SecureRandom.hex,
+                     ID_num: rand.to_s[2..5],
                      specialization: Faker::Company.catch_phrase,
                      interest: Faker::Company.bs,
                      session: [:Tu, :Th, :TuTh].sample,

@@ -50,18 +50,22 @@
 <div class='col-xs-11'><%= @user.note %></div>
 </div> <% end %>
 <br>
-
-<div class="list-group">
-  <% if @user.is_a?(Parent) %>
-    <h4>Children Authorized to drop off or pick up</h4>
-    <%= render partial:'user_list', collection: @user.children, as: :user %>
-    
-  <% elsif @user.is_a?(Student) %>
-    <h4>Adults Authorized to drop off or pick up</h4>
-    <%= render partial:'user_list', collection: @user.parents, as: :user %>
-  
-  <% elsif @user.is_a?(Volunteer) %>
-    <h4>Students</h4>
-    <%= render partial:'user_list', collection: @user.students, as: :user %>
-  <% end %>
+<% if not @user.is_a?(Admin) %>
+<div class="panel panel-default">
+  <div class='panel-heading'>
+    <% if @user.is_a?(Parent) %>
+      Children Authorized to drop off or pick up
+      <% users = @user.children %>
+    <% elsif @user.is_a?(Student) %>
+      Adults Authorized to drop off or pick up
+      <% users = @user.parents %>
+    <% elsif @user.is_a?(Volunteer) %>
+      Students
+      <% users = @user.students %>
+    <% end %>
+  </div>
+  <div class="list-group">
+    <%= render partial:'user_list', collection: users, as: :user %>
+  </div>
 </div>
+<% end %>
