@@ -17,8 +17,15 @@
         <option>Science</option>
         <option>Computer</option>
       </select>
-      <button id='signin_button' class="btn btn-primary">Check in</button>
+      <button name='signin_button' class="btn btn-primary">Check in</button>
     </div>
   </form>
   </div>
 </div>
+
+<script>
+  $('[rel=popover]').popover({placement:'bottom', html:true, trigger:'hover'})
+  $('[name=signin_button]').click(function(){
+    alert('You\'ve Signed In!')
+  })
+</script>
