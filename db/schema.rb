@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131205101158) do
+ActiveRecord::Schema.define(version: 20131207050755) do
 
   create_table "relationships", force: true do |t|
     t.integer  "parent_id"
@@ -24,12 +24,30 @@ ActiveRecord::Schema.define(version: 20131205101158) do
   add_index "relationships", ["parent_id", "child_id"], name: "index_relationships_on_parent_id_and_child_id", unique: true
   add_index "relationships", ["parent_id"], name: "index_relationships_on_parent_id"
 
+  create_table "score_cards", force: true do |t|
+    t.integer  "engagement"
+    t.integer  "preparedness"
+    t.integer  "attention"
+    t.integer  "overall"
+    t.string   "note"
+    t.integer  "student_id"
+    t.integer  "volunteer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "score_cards", ["student_id"], name: "index_score_cards_on_student_id"
+  add_index "score_cards", ["volunteer_id"], name: "index_score_cards_on_volunteer_id"
+
   create_table "tutorages", force: true do |t|
     t.integer  "volunteer_id"
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tutorages", ["student_id"], name: "index_tutorages_on_student_id"
+  add_index "tutorages", ["volunteer_id"], name: "index_tutorages_on_volunteer_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

@@ -1,12 +1,13 @@
 Casa::Application.routes.draw do
   resources :users do
     member do
-      get :parent, :child, :profile
+      get :profile, :score
     end
   end
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :score_cards
   
   root 'pages#index'
   match '/signup', to: 'users#new', via: 'get'

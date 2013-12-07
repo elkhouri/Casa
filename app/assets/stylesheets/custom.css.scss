@@ -12,9 +12,18 @@
   }
 }
 
+.panel-default {
+  .panel-heading: {
+    background-color: #526476;
+    color: #526476;
+    border-color: #526476;
+  }
+}
+
 .navbar {
   margin-bottom: 0; 
 }
+
 .tab-content {
   padding: 0;
 }

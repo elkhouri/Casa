@@ -1,0 +1,14 @@
+<% provide(:title, @title) %>
+<div class='page-header'>
+  <h3><%= @title %></h3>
+</div>
+
+<div class="panel-group" id="accordion">
+  <% if current_user.is_a?(Volunteer) %>
+    <%= render partial:'score_cards/score_card_form' ,collection: @user.students, as: :student %>
+    <%= will_paginate @user.students.paginate(page: params[:page])%>
+  <% elsif current_user.is_a?(Student) %>
+    <%= render @user.score_cards%>
+    <%= will_paginate @user.score_cards.paginate(page: params[:page])%>
+  <% end %>
+</div>

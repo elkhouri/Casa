@@ -8,6 +8,11 @@ class UsersController < ApplicationController
     @title = @user.name
   end
   
+  def score
+    @title = 'Score Cards'
+    @user = User.find(params[:id])
+  end
+  
   def admin
     @parents = Parent.paginate(page: params[:page])
     @students = Student.paginate(page: params[:page])

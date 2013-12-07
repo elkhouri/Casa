@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  engagement: 1
+  preparedness: 1
+  attention: 1
+  overall: 1
+  note: MyString
+  student_id: 
+  volunteer_id: 
+
+two:
+  engagement: 1
+  preparedness: 1
+  attention: 1
+  overall: 1
+  note: MyString
+  student_id: 
+  volunteer_id: 

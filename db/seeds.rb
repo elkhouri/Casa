@@ -39,7 +39,7 @@ volunteer =  Volunteer.create!(name: 'Example Volunteer',
 ids = []
 until ids.size == 50
   n = rand.to_s[2..6]
-  ids.push(n) if not ids.include?(n)
+  ids.push(n) unless ids.include?(n) 
 end
 
 10.times do |n|
@@ -80,6 +80,15 @@ end
                   password_confirmation: password)
 end
 
+Volunteer.first(5).each do |v|
+  v.score_cards.create!(student: Student.first,
+                        engagement:rand(1..10),
+                        preparedness:rand(1..10),
+                        attention:rand(1..10),
+                        overall:rand(1..10),
+                        note: Faker::Lorem.sentence)
+end
+  
 
 parent = Parent.first
 volunteer = Volunteer.first
