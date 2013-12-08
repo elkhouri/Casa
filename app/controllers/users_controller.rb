@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def profile
     @user = User.find(params[:id])
     @title = @user.name
+    @attendances = @user.attendances.all
   end
   
   def score

@@ -7,7 +7,7 @@
       <ul class="nav navbar-nav">
         <% if current_user.admin? %>
           <li><%= link_to "Statistics", stats_path %></li>
-        <% elsif current_user.is_a?(Volunteer) or current_user.is_a?(Student) %>
+        <% elsif current_user.is_a?(Volunteer) %>
           <li><%= link_to "Score Cards", score_user_path(current_user) %>
         <% end %>
         <li><%= link_to "Profile", profile_user_path(current_user) %></li>

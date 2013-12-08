@@ -1,71 +1,132 @@
 <% provide :title, @title %>
+
 <div class='page-header'>
   <h3> <%= @user.name %> 
   <span class="label label-primary"><%= @user.class %> </span></h3>
 </div>
 
-<% if not @user.grade.nil? %> 
-<div class='row'>
-<div class='col-xs-1'>Grade: </div>
-<div class='col-xs-11'> <%= @user.grade %> </div> 
-</div> <% end %>
+<ul class="nav nav-tabs nav-append-content" id='profile_tab'>
+  <li class='active'><a href='#profile' data-toggle="tab">Profile</a></li>
+  <% case @user.class.to_s %>
+    <% when "Student" %>
+      <li><a href='#score_cards' data-toggle="tab">Score Cards</a></li>
+      <li><a href='#authorized' data-toggle="tab">Authorized Adults</a></li>
+      <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
+    <% when "Volunteer" %>
+      <li><a href='#authorized' data-toggle="tab">Students</a></li>
+      <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
+    <% when "Parent" %>
+      <li><a href='#authorized' data-toggle="tab">Children</a></li>
+  <% end %>
+</ul>
 
-<div class='row'>
-<div class='col-xs-1'>ID: </div>
-<div class='col-xs-11'><%= @user.ID_num %></div>
-</div>
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="profile">
+    <% if not @user.grade.nil? %> 
+    <div class='row'>
+    <div class='col-xs-1'>Grade: </div>
+    <div class='col-xs-11'> <%= @user.grade %> </div> 
+    </div> <% end %>
 
-<div class='row'>
-<div class='col-xs-1'>Address: </div>
-<div class='col-xs-11'><%= @user.address %></div>
-</div>
+    <div class='row'>
+    <div class='col-xs-1'>ID: </div>
+    <div class='col-xs-11'><%= @user.ID_num %></div>
+    </div>
 
-<div class='row'>
-<div class='col-xs-1'>Phone: </div>
-<div class='col-xs-11'><%= @user.phone %></div>
-</div>
+    <div class='row'>
+    <div class='col-xs-1'>Address: </div>
+    <div class='col-xs-11'><%= @user.address %></div>
+    </div>
 
-<div class='row'>
-<div class='col-xs-1'>Email: </div>
-<div class='col-xs-11'><%= @user.email %></div>
-</div>
+    <div class='row'>
+    <div class='col-xs-1'>Phone: </div>
+    <div class='col-xs-11'><%= @user.phone %></div>
+    </div>
 
-<% if not @user.session.nil? %> <div class='row'>
-<div class='col-xs-1'>Session: </div>
-<div class='col-xs-11'><%= @user.session %></div>
-</div> <% end %>
+    <div class='row'>
+    <div class='col-xs-1'>Email: </div>
+    <div class='col-xs-11'><%= @user.email %></div>
+    </div>
 
-<% if not @user.specialization.nil? %> <div class='row'>
-<div class='col-xs-1'>Specialization: </div>
-<div class='col-xs-11'><%= @user.specialization %></div>
-</div> <% end %>
+    <% if not @user.session.nil? %> <div class='row'>
+    <div class='col-xs-1'>Session: </div>
+    <div class='col-xs-11'><%= @user.session %></div>
+    </div> <% end %>
 
-<% if not @user.interest.nil? %> <div class='row'>
-<div class='col-xs-1'>Interests: </div>
-<div class='col-xs-11'><%= @user.interest %></div>
-</div> <% end %>
+    <% if not @user.specialization.nil? %> <div class='row'>
+    <div class='col-xs-1'>Specialization: </div>
+    <div class='col-xs-11'><%= @user.specialization %></div>
+    </div> <% end %>
 
-<% if not @user.note.nil? %> <div class='row'>
-<div class='col-xs-1'>Notes: </div>
-<div class='col-xs-11'><%= @user.note %></div>
-</div> <% end %>
-<br>
-<% if not @user.is_a?(Admin) %>
-<div class="panel panel-default">
-  <div class='panel-heading'>
+    <% if not @user.interest.nil? %> <div class='row'>
+    <div class='col-xs-1'>Interests: </div>
+    <div class='col-xs-11'><%= @user.interest %></div>
+    </div> <% end %>
+
+    <% if not @user.note.nil? %> <div class='row'>
+    <div class='col-xs-1'>Notes: </div>
+    <div class='col-xs-11'><%= @user.note %></div>
+    </div> <% end %>
+  </div>
+  
+  <div class="tab-pane fade" id="score_cards">
+    <div class="panel-group" id="accordion">
+      <% if @user.is_a?(Volunteer) %>
+        <%= render partial:'score_cards/score_card_form' ,collection: current_user.students, as: :student %>
+        <%= will_paginate current_user.students.paginate(page: params[:page])%>
+      <% elsif @user.is_a?(Student) %>
+        <%= render @user.score_cards%>
+        <%= will_paginate @user.score_cards.paginate(page: params[:page])%>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="tab-pane fade" id="attendance">
+    <div id='calendar'></div>
+  </div>
+  
+  <div class="tab-pane fade" id="authorized">
     <% if @user.is_a?(Parent) %>
-      Children Authorized to drop off or pick up
       <% users = @user.children %>
     <% elsif @user.is_a?(Student) %>
-      Adults Authorized to drop off or pick up
       <% users = @user.parents %>
     <% elsif @user.is_a?(Volunteer) %>
-      Students
       <% users = @user.students %>
     <% end %>
-  </div>
-  <div class="list-group">
-    <%= render partial:'user_list', collection: users, as: :user %>
+    <div class="list-group">
+      <%= render partial:'user_list', collection: users, as: :user %>
+    </div>
   </div>
 </div>
-<% end %>
+
+<script>
+$(document).ready(function () {
+  flag = false
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    if(!flag){
+      $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title'
+        },
+        aspectRatio: 2,
+        events: [
+            <% @attendances.each_with_index do |a, i|%>
+              {
+                <% if @user.is_a?(Student) %>
+                  title: "<%= "Attended and brought work: " << a.work %>",
+                <% elsif @user.is_a?(Volunteer) %>
+                  title: "Attended",
+                <% end %>
+                start: new Date("<%= a.dropoff_time %>")
+              }<%= i == @attendances.size-1?'':',' %>
+            <% end %>
+        ]
+      });
+      flag = true
+    }
+  })
+  
+})
+</script>

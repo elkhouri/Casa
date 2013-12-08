@@ -89,6 +89,21 @@ Volunteer.first(5).each do |v|
                         note: Faker::Lorem.sentence)
 end
   
+Student.first(5).each do |s|
+  for i in 1..5
+    s.attendances.create!(work: Faker::Lorem.word,
+                        dropoff_time: Time.now + i.day,
+                        pickup_time: Time.now + i.day)
+  end
+end
+
+Volunteer.first(5).each do |v|
+  for i in 1..5
+    v.attendances.create!(work: Faker::Lorem.word,
+                        dropoff_time: Time.now + i.day,
+                        pickup_time: Time.now + i.day)
+  end
+end
 
 parent = Parent.first
 volunteer = Volunteer.first
