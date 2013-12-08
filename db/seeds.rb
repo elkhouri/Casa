@@ -93,9 +93,11 @@ for s in %w[Math English History Science Computer]
   Subject.create!(name: s)
 end
 
-Student.first(5).each do |s|
+Student.first(6).each do |s|
   for i in 1..5
     s.attendances.create!(subject: Subject.offset(rand(Subject.count)).first,
+                        dropoff: Parent.offset(rand(Parent.count)).first,
+                        pickup: Parent.offset(rand(Parent.count)).first,
                         dropoff_time: Time.now + i.day,
                         pickup_time: Time.now + i.day)
   end

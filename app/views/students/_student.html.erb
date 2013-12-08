@@ -7,9 +7,18 @@
           <%= f.submit "Check Out", class: "btn btn-large btn-warning" %>
         <% end %>
       <% else %>
-        <%= form_for [student, Attendance.new] do |f| %>
-          <%= collection_select(:student, :subject_id, Subject.all, :id, :name, {}, {class:'form-control'}) %>
-          <%= f.submit "Check In", class: "btn btn-large btn-primary" %>
+        <%= form_for [student, Attendance.new], html:{class:'form-horizontal'} do |f| %>
+          <div class='row'>
+            <div class='col-sm-1'>
+              <label class='control-label'>Work</label>
+            </div>
+            <div class='col-sm-offset-1 col-sm-5'>
+              <%= collection_select(:student, :subject_id, Subject.all, :id, :name, {}, {class:'form-control'}) %>
+            </div>
+            <div class='col-sm-1'>
+              <%= f.submit "Check In", class: "btn btn-primary" %>
+            </div>
+          </div>
         <% end %>
       <% end %>
     </div>
