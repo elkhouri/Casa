@@ -1,13 +1,14 @@
 <div class='col-sm-3'>
     <%= gravatar_thumbnail student, size:300 %>
     <div class='caption text-center'>
-      <h3><%= student.name %></h3>
+      <h4><%= student.name %></h4>
       <% if student.checked_in? %>
         <%= form_for [student, student.attendances.last] do |f| %>
           <%= f.submit "Check Out", class: "btn btn-large btn-warning" %>
         <% end %>
       <% else %>
         <%= form_for [student, Attendance.new] do |f| %>
+          <%= collection_select(:student, :subject_id, Subject.all, :id, :name, {}, {class:'form-control'}) %>
           <%= f.submit "Check In", class: "btn btn-large btn-primary" %>
         <% end %>
       <% end %>

@@ -115,7 +115,7 @@ $(document).ready(function () {
             <% @attendances.each_with_index do |a, i|%>
               {
                 <% if @user.is_a?(Student) %>
-                  title: "<%= "Attended and brought work: " << a.work %>",
+                  title: "<%= "Attended and brought work: " << Subject.find(a.subject).name %>",
                 <% elsif @user.is_a?(Volunteer) %>
                   title: "Attended",
                 <% end %>

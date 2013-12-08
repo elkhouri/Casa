@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131207224609) do
+ActiveRecord::Schema.define(version: 20131208084726) do
 
   create_table "attendances", force: true do |t|
     t.integer  "user_id"
-    t.string   "work"
+    t.integer  "subject_id"
     t.datetime "dropoff_time"
     t.integer  "dropoff_id"
     t.datetime "pickup_time"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20131207224609) do
 
   add_index "attendances", ["dropoff_id"], name: "index_attendances_on_dropoff_id"
   add_index "attendances", ["pickup_id"], name: "index_attendances_on_pickup_id"
+  add_index "attendances", ["subject_id"], name: "index_attendances_on_subject_id"
   add_index "attendances", ["user_id"], name: "index_attendances_on_user_id"
 
   create_table "relationships", force: true do |t|
@@ -54,6 +55,12 @@ ActiveRecord::Schema.define(version: 20131207224609) do
 
   add_index "score_cards", ["student_id"], name: "index_score_cards_on_student_id"
   add_index "score_cards", ["volunteer_id"], name: "index_score_cards_on_volunteer_id"
+
+  create_table "subjects", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tutorages", force: true do |t|
     t.integer  "volunteer_id"

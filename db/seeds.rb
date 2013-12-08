@@ -88,10 +88,14 @@ Volunteer.first(5).each do |v|
                         overall:rand(1..10),
                         note: Faker::Lorem.sentence)
 end
-  
+
+for s in %w[Math English History Science Computer]
+  Subject.create!(name: s)
+end
+
 Student.first(5).each do |s|
   for i in 1..5
-    s.attendances.create!(work: Faker::Lorem.word,
+    s.attendances.create!(subject: Subject.offset(rand(Subject.count)).first,
                         dropoff_time: Time.now + i.day,
                         pickup_time: Time.now + i.day)
   end
@@ -99,7 +103,7 @@ end
 
 Volunteer.first(5).each do |v|
   for i in 1..5
-    v.attendances.create!(work: Faker::Lorem.word,
+    v.attendances.create!(
                         dropoff_time: Time.now + i.day,
                         pickup_time: Time.now + i.day)
   end
