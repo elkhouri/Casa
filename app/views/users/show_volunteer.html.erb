@@ -7,9 +7,14 @@
     <%= gravatar_for @user, size:250 %>
   </div>
   <div class='col-md-9'>
-  <form>
-    <button id='signin_button' class="btn btn-primary">Check In</button>
-    <button id='signout_button' class="btn btn-warning">Check Out</button>
-  </form>
+    <% if @user.checked_in? %>
+      <%= form_for [@user, @user.attendances.last] do |f| %>
+        <%= f.submit "Check Out", class: "btn btn-large btn-warning" %>
+      <% end %>
+    <% else %>
+      <%= form_for [@user, Attendance.new] do |f| %>
+        <%= f.submit "Check In", class: "btn btn-large btn-primary" %>
+      <% end %>
+    <% end %>
   </div>
 </div>

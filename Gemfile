@@ -5,7 +5,9 @@ gem 'will_paginate'
 #gem 'bootstrap-sass', '~> 3.0.2.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'railties', '~> 4.0.2'
 gem 'rails', '~> 4.0.2'
+
 
 # Use postgresql as the database for Active Record
 group :development, :test do

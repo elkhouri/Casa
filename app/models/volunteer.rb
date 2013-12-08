@@ -16,4 +16,5 @@ class Volunteer < User
                         preparedness: score_card[:preparedness], attention: score_card[:attention],
                         overall: score_card[:overall], note: score_card[:note])
   end
+  
 end

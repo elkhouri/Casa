@@ -1,7 +1,8 @@
 Casa::Application.routes.draw do
   resources :users do
+    resources :attendances
     member do
-      get :profile, :score
+      get :profile, :score 
     end
   end
 

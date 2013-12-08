@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
                                    dependent: :destroy
   has_many :parents, through: :reverse_relationships
   has_many :children, through: :relationships
+  has_many :attendances
 
   before_create :create_remember_token
   validates :name, presence:true
@@ -30,6 +31,19 @@ class User < ActiveRecord::Base
   def unparent!(other_user)
     relationships.find_by(child_id: other_user.id).destroy!
   end
+  
+  def checked_in?
+    not attendances.empty? and attendances.last.pickup_time.nil?
+  end
+  
+  def attends!(user, params)
+    if user.is_a?(Parent)
+      attendances.create!(dropoff_time: Time.current(), dropoff: user)
+    else
+      attendances.create!(dropoff_time: Time.current())
+    end
+  end
+  
   private
   
   def create_remember_token

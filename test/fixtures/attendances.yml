@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  work: MyString
+  dropoff_time: 2013-12-07 14:46:09
+  dropoff_id: 
+  pickup_time: 2013-12-07 14:46:09
+  pickup_id: 
+  override: MyString
+
+two:
+  work: MyString
+  dropoff_time: 2013-12-07 14:46:09
+  dropoff_id: 
+  pickup_time: 2013-12-07 14:46:09
+  pickup_id: 
+  override: MyString

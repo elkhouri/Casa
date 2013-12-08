@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131207050755) do
+ActiveRecord::Schema.define(version: 20131207224609) do
+
+  create_table "attendances", force: true do |t|
+    t.integer  "user_id"
+    t.string   "work"
+    t.datetime "dropoff_time"
+    t.integer  "dropoff_id"
+    t.datetime "pickup_time"
+    t.integer  "pickup_id"
+    t.string   "override"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attendances", ["dropoff_id"], name: "index_attendances_on_dropoff_id"
+  add_index "attendances", ["pickup_id"], name: "index_attendances_on_pickup_id"
+  add_index "attendances", ["user_id"], name: "index_attendances_on_user_id"
 
   create_table "relationships", force: true do |t|
     t.integer  "parent_id"
