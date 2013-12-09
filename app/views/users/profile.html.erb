@@ -1,14 +1,10 @@
 <% provide :title, @title %>
-<%= stylesheet_link_tag 'jquery.jqplot' %>
-<%= javascript_include_tag 'jquery.jqplot' %>
-<%= javascript_include_tag 'jqplot.dateAxisRenderer' %>
-<%= javascript_include_tag 'jqplot.pieRenderer' %>
 
 <div class='page-header'>
   <h3> <%= @user.name %> 
   <span class="label label-primary"><%= @user.class %> </span></h3>
 </div>
-
+<style>.calendar td { height: 100px; width: 14.28%; }</style>
 <ul class="nav nav-tabs nav-append-content" id='profile_tab'>
   <li class='active'><a href='#profile' data-toggle="tab">Profile / Perfile</a></li>
   <% case @user.class.to_s %>
@@ -89,8 +85,8 @@
   </div>
   
   <div class="tab-pane fade" id="attendance">
-    <%= calendar @attendances do |a| %>
-      <span class="fui-check"></span>
+    <%= calendar @attendances, class:"table table-striped table-bordered calendar text-center" do |a| %>
+      <%= fa_icon "check"%>
     <% end %>
   </div>
   
@@ -135,16 +131,29 @@
 
 <script>
   $('h2').replaceWith("<h4 class='text-center'>" + $('h2').html() + "</h4>" )
-  $('.previous-month').html('<span class="fui-arrow-left"></span>   ')
-  $('.next-month').html('    <span class="fui-arrow-right"></span>')
+  $('.previous-month').html('<%= fa_icon "chevron-left" %>   ')
+  $('.next-month').html('    <%= fa_icon "chevron-right" %></span>')
   $(function () {
     $("#profile_tab a#stats_tab").on('shown.bs.tab', function (e) {
-      var dropoffs=[<% @attendances.each do |a| %>[
-      '<%=a.dropoff_time.in_time_zone('America/Los_Angeles').to_date %>',
-      '<%= a.dropoff_time.in_time_zone('America/Los_Angeles').to_s(:time) %>'],<% end %>]
-      var pickops=[<% @attendances.each do |a| %>[
-      '<%=a.pickup_time.in_time_zone('America/Los_Angeles').to_date %>',
-      '<%= a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) %>'],<% end %>]
+      <% @dropff = "["
+        @pickup = "[" 
+        @attendances.each do |a| 
+          @dropff << "['" << a.dropoff_time.in_time_zone('America/Los_Angeles').to_date.to_s << "','"if not a.dropoff_time.nil?
+          @dropff << a.dropoff_time.in_time_zone('America/Los_Angeles').to_s(:time) << "']," if not a.dropoff_time.nil?
+          @pickup << "['" << a.pickup_time.in_time_zone('America/Los_Angeles').to_date.to_s << "','"if not a.pickup_time.nil?
+          @pickup << a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) << "']," if not a.pickup_time.nil?
+        end 
+       @dropff << "]"
+       @pickup << "]"%>
+       
+      var dropoffs = <%= @dropff.html_safe %>
+      var pickops = <%= @pickup.html_safe %>
+      
+      <% @attendances.each do |a| 
+        puts a.pickup_time.in_time_zone('America/Los_Angeles').to_date if not a.pickup_time.nil?
+        puts a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) if not a.pickup_time.nil?
+       end %>
+      
 
       var attendance_chart = $.jqplot('attendance_chart', [dropoffs, pickops], {
         title:'Arrival and Departure Times / La Horas de Llegada y Salida',

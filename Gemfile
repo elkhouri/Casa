@@ -3,7 +3,9 @@ ruby '2.0.0'
 gem 'faker'
 gem 'will_paginate'
 gem 'simple_calendar'
-
+gem 'outfielding-jqplot-rails'
+gem 'bootstrap-sass', '~> 3.0.3'
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.0.2'
 

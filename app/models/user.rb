@@ -37,8 +37,10 @@ class User < ActiveRecord::Base
   end
   
   def attends!(user, params)
-    subject = Subject.find(params[:student][:subject_id])
-    if user.is_a?(Parent)
+    if not params[:student].nil?
+      subject = Subject.find(params[:student][:subject_id])
+    end
+    if user.is_a?(Parent) or user.is_a?(Student)
       if subject.nil?
         attendances.create!(dropoff_time: Time.current(), dropoff: user)
       else
