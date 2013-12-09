@@ -1,8 +1,8 @@
 <% provide :title, @title %>
-<script src='https://www.google.com/jsapi'></script>
 <%= stylesheet_link_tag 'jquery.jqplot' %>
 <%= javascript_include_tag 'jquery.jqplot' %>
 <%= javascript_include_tag 'jqplot.dateAxisRenderer' %>
+<%= javascript_include_tag 'jqplot.pieRenderer' %>
 
 <div class='page-header'>
   <h3> <%= @user.name %> 
@@ -16,11 +16,11 @@
       <li><a href='#score_cards' data-toggle="tab">Score Cards / Boleta de Calificaciones </a></li>
       <li><a href='#authorized' data-toggle="tab">Authorized Adults / Padres</a></li>
       <li><a href='#attendance' id='attendance_tab' data-toggle="tab">Attendance/ Asistencia</a></li>
-      <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
+      <li><a href='#stats' id='stats_tab' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Volunteer" %>
       <li><a href='#authorized' data-toggle="tab">Students / Estudiantes</a></li>
       <li><a href='#attendance' id='attendance_tab' data-toggle="tab">Attendance / Asistencia</a></li>
-      <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
+      <li><a href='#stats' id='stats_tab' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Parent" %>
       <li><a href='#authorized' data-toggle="tab">Children / Hijos</a></li>
   <% end %>
@@ -109,19 +109,26 @@
   
   <div class="tab-pane fade" id="stats">
     <% if @user.is_a?(Student) or @user.is_a?(Volunteer) %>
-      <div class='chart' id='attendance_chart'></div>
-      <%= render_chart(@attendance_chart, 'attendance_chart') %>
+
     <% end %>
-    <% if @user.is_a?(Student) %>
+    <% if @user.is_a?(Student) or @user.is_a?(Volunteer)%>
       <div class='row'>
-        <div class='col-md-4'><div class='chart' id='subject_pie'></div></div>
-        <div class='col-md-4'><div class='chart' id='dropoff_pie'></div></div>
-        <div class='col-md-4'><div class='chart' id='pickup_pie'></div></div>
-        
-        <%= render_chart(@subject_pie, 'subject_pie') %>
-        <%= render_chart(@dropoff_pie, 'dropoff_pie') %>
-        <%= render_chart(@pickup_pie, 'pickup_pie') %>
+        <div class='col-md-10 col-md-offset-1'>
+          <div class='chart' id='attendance_chart' ></div>
+        </div>
       </div>
+   <% end %>
+   <% if @user.is_a?(Student) %>
+      <div class='row'>
+        <div class='col-md-4'>
+          <div id='subject_chart'></div>
+        </div>
+        <div class='col-md-4'>
+          <div id='dropoff_chart'></div>
+        </div>
+        <div class='col-md-4'>
+          <div id='pickup_chart'></div>
+        </div>
     <% end %>
   </div>
 </div>
@@ -131,21 +138,77 @@
   $('.previous-month').html('<span class="fui-arrow-left"></span>   ')
   $('.next-month').html('    <span class="fui-arrow-right"></span>')
   $(function () {
-    var line1=[['2008-08-12 4:00PM',4], ['2008-09-12 4:00PM',6.5], ['2008-10-12 4:00PM',5.7], ['2008-11-12 4:00PM',9], ['2008-12-12 4:00PM',8.2]];
-    var plot1 = $.jqplot('chart1', [line1], {
-    title:'Default Date Axis',
-    axes:{
-        xaxis:{
-            renderer:$.jqplot.DateAxisRenderer
-        },
-        yaxis:{
-          renderer:$.jqplot.DateAxisRenderer
-        }
-    },
-    series:[{lineWidth:4, markerOptions:{style:'square'}}]
-  });
-  <% if not params[:year].nil? %>
-    $('#profile_tab a#attendance_tab').tab('show')
-  <% end %>
+    $("#profile_tab a#stats_tab").on('shown.bs.tab', function (e) {
+      var dropoffs=[<% @attendances.each do |a| %>[
+      '<%=a.dropoff_time.in_time_zone('America/Los_Angeles').to_date %>',
+      '<%= a.dropoff_time.in_time_zone('America/Los_Angeles').to_s(:time) %>'],<% end %>]
+      var pickops=[<% @attendances.each do |a| %>[
+      '<%=a.pickup_time.in_time_zone('America/Los_Angeles').to_date %>',
+      '<%= a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) %>'],<% end %>]
+
+      var attendance_chart = $.jqplot('attendance_chart', [dropoffs, pickops], {
+        title:'Arrival and Departure Times / La Horas de Llegada y Salida',
+        grid: {shadow:false},
+        legend: { show:true, location: 'ne',xoffset: 52, },
+        series: [ {label:'Llegada'},{label:'Salida'}
+        
+        ],
+        axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer},
+              yaxis:{renderer:$.jqplot.DateAxisRenderer,
+                      tickOptions:{formatString:'%R'}}}
+      });
+      <% if @user.is_a?(Student) %>
+      var subjects=[<% Subject.all.each_with_index do |s,i| %>["<%= s.name %>",<%=@attendances.select{|a| a[:subject_id] == s.id}.count%>], <% end %>]
+      var subject_pie = jQuery.jqplot ('subject_chart', [subjects], 
+      { 
+        title: 'Subjects / Temas',
+        grid: {shadow:false},
+        seriesDefaults: {
+          renderer: jQuery.jqplot.PieRenderer, 
+          rendererOptions: {
+            showDataLabels: true
+          }
+        }, 
+        legend: { show:true, location: 'e' }
+      })
+      
+      
+      var dropoffs=[<% @attendances.uniq{|x| x.dropoff_id}.first(3).each do |d| %>[
+      "<%=d.dropoff.name%>",
+      <%= @attendances.select{|a| a[:dropoff_id] == d.dropoff.id}.count%>], <%end %>]
+      var dropoff_pie = jQuery.jqplot ('dropoff_chart', [dropoffs], 
+      { 
+        title: 'Who Dropped Off / Quien Bajar',
+        grid: {shadow:false},
+        seriesDefaults: {
+          renderer: jQuery.jqplot.PieRenderer, 
+          rendererOptions: {
+            showDataLabels: true
+          }
+        }, 
+        legend: { show:true, location: 'e' }
+      })
+      
+      var pickups=[<% @attendances.uniq{|x| x.pickup_id}.first(3).each do |d| %>[
+      "<%=d.pickup.name%>",
+      <%= @attendances.select{|a| a[:pickup_id] == d.pickup.id}.count%>], <%end %>]
+      var pickup_pie = jQuery.jqplot ('pickup_chart', [pickups], 
+      { 
+        title: 'Who Picked Up / Quien Ligarse',
+        grid: {shadow:false},
+        seriesDefaults: {
+          renderer: jQuery.jqplot.PieRenderer, 
+          rendererOptions: {
+            showDataLabels: true
+          }
+        }, 
+        legend: { show:true, location: 'e' }
+      })
+      <% end %>
+  
+    })
+    <% if not params[:year].nil? %>
+      $('#profile_tab a#attendance_tab').tab('show')
+    <% end %>
   })
 </script>

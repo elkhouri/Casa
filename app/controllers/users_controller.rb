@@ -7,12 +7,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title = @user.name
     @attendances = @user.attendances.all
-    @attendance_chart = attendances_chart(@attendances)
-    if @user.is_a?(Student)
-    @subject_pie = subjects_pie(@attendances)
-    @dropoff_pie = dropoffs_pie(@attendances)
-    @pickup_pie = pickups_pie(@attendances)
-    end
   end
   
   def calendar
@@ -97,71 +91,5 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_url) unless current_user.admin?
     end
-    
-    def attendances_chart(collection)
-      data_table = GoogleVisualr::DataTable.new
-      
-      data_table.new_column('date', 'Date' )
-      data_table.new_column('timeofday', 'Arrival Time')
-      data_table.new_column('timeofday', 'Departure Time')
-      
-      collection.each do |a|
-        st,et = a.dropoff_time.in_time_zone('America/Los_Angeles'), a.pickup_time.in_time_zone('America/Los_Angeles')
 
-        data_table.add_rows([[st.to_date, [st.hour,st.min,st.sec],[et.hour+1,et.min,et.sec]]])
-      end
-      option = {curveType:'function', title: 'Arrival and Departure Times / La Horas de Llegada y Salida', width:1100
-                }
-       return GoogleVisualr::Interactive::LineChart.new(data_table, option)
-    end
-    
-    def subjects_pie(collection)
-      data_table = GoogleVisualr::DataTable.new
-      
-      data_table.new_column('string', 'Subject' )
-      data_table.new_column('number', 'Number')
-      data_table.add_rows(Subject.count)
-      
-      Subject.all.each_with_index do |s,i|
-        data_table.set_cell(i, 0, s.name)
-        data_table.set_cell(i, 1, collection.select{|a| a[:subject_id] == s.id}.count)
-      end
-      option = {title: 'Subjects / Temas', width:300
-                }
-       return GoogleVisualr::Interactive::PieChart.new(data_table, option)
-    end
-
-    def dropoffs_pie(collection)
-      c = collection.uniq{|x| x.dropoff_id}
-      data_table = GoogleVisualr::DataTable.new
-  
-      data_table.new_column('string', 'Parents' )
-      data_table.new_column('number', 'Number')
-      data_table.add_rows(c.count)
-    
-      c.each_with_index do |d,i|
-        data_table.set_cell(i, 0, d.dropoff.name)
-        data_table.set_cell(i, 1, collection.select{|a| a[:dropoff_id] == d.dropoff.id}.count)
-      end
-      option = {title: 'Who Dropped Off / Quien Bajar', width:300
-                }
-       return GoogleVisualr::Interactive::PieChart.new(data_table, option)
-    end
-    
-    def pickups_pie(collection)
-      c = collection.uniq{|x| x.pickup_id}
-      data_table = GoogleVisualr::DataTable.new
-  
-      data_table.new_column('string', 'Parents' )
-      data_table.new_column('number', 'Number')
-      data_table.add_rows(c.count)
-    
-      c.each_with_index do |d,i|
-        data_table.set_cell(i, 0, d.pickup.name)
-        data_table.set_cell(i, 1, collection.select{|a| a[:dropoff_id] == d.pickup.id}.count)
-      end
-      option = {title: 'Who Picked Up / Quien Ligarse', width:300
-                }
-       return GoogleVisualr::Interactive::PieChart.new(data_table, option)
-    end   
 end
