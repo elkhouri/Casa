@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     end
   end
   
+  def calendar
+    respond_to do |format|
+      format.js 'aa'
+    end
+  end
+  
   def score
     @title = 'Score Cards'
     @user = User.find(params[:id])

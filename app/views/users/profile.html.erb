@@ -1,5 +1,8 @@
 <% provide :title, @title %>
 <script src='https://www.google.com/jsapi'></script>
+<%= stylesheet_link_tag 'jquery.jqplot' %>
+<%= javascript_include_tag 'jquery.jqplot' %>
+<%= javascript_include_tag 'jqplot.dateAxisRenderer' %>
 
 <div class='page-header'>
   <h3> <%= @user.name %> 
@@ -12,11 +15,11 @@
     <% when "Student" %>
       <li><a href='#score_cards' data-toggle="tab">Score Cards / Boleta de Calificaciones </a></li>
       <li><a href='#authorized' data-toggle="tab">Authorized Adults / Padres</a></li>
-      <li><a href='#attendance' data-toggle="tab">Attendance/ Asistencia</a></li>
+      <li><a href='#attendance' id='attendance_tab' data-toggle="tab">Attendance/ Asistencia</a></li>
       <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Volunteer" %>
       <li><a href='#authorized' data-toggle="tab">Students / Estudiantes</a></li>
-      <li><a href='#attendance' data-toggle="tab">Attendance / Asistencia</a></li>
+      <li><a href='#attendance' id='attendance_tab' data-toggle="tab">Attendance / Asistencia</a></li>
       <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Parent" %>
       <li><a href='#authorized' data-toggle="tab">Children / Hijos</a></li>
@@ -86,7 +89,9 @@
   </div>
   
   <div class="tab-pane fade" id="attendance">
-    <div id='calendar'></div>
+    <%= calendar @attendances do |a| %>
+      <span class="fui-check"></span>
+    <% end %>
   </div>
   
   <div class="tab-pane fade" id="authorized">
@@ -122,33 +127,25 @@
 </div>
 
 <script>
-$(document).ready(function () {
-  flag = false
-
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    if(!flag){
-      $('#calendar').fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title'
+  $('h2').replaceWith("<h4 class='text-center'>" + $('h2').html() + "</h4>" )
+  $('.previous-month').html('<span class="fui-arrow-left"></span>   ')
+  $('.next-month').html('    <span class="fui-arrow-right"></span>')
+  $(function () {
+    var line1=[['2008-08-12 4:00PM',4], ['2008-09-12 4:00PM',6.5], ['2008-10-12 4:00PM',5.7], ['2008-11-12 4:00PM',9], ['2008-12-12 4:00PM',8.2]];
+    var plot1 = $.jqplot('chart1', [line1], {
+    title:'Default Date Axis',
+    axes:{
+        xaxis:{
+            renderer:$.jqplot.DateAxisRenderer
         },
-        aspectRatio: 2,
-        events: [
-            <% @attendances.each_with_index do |a, i|%>
-              {
-                <% if @user.is_a?(Student) %>
-                  title: "<%= "Attended and brought work: " << Subject.find(a.subject).name %>",
-                <% elsif @user.is_a?(Volunteer) %>
-                  title: "Attended",
-                <% end %>
-                start: new Date("<%= a.dropoff_time %>")
-              }<%= i == @attendances.size-1?'':',' %>
-            <% end %>
-        ]
-      });
-      flag = true
-    }
+        yaxis:{
+          renderer:$.jqplot.DateAxisRenderer
+        }
+    },
+    series:[{lineWidth:4, markerOptions:{style:'square'}}]
+  });
+  <% if not params[:year].nil? %>
+    $('#profile_tab a#attendance_tab').tab('show')
+  <% end %>
   })
-  
-})
 </script>
