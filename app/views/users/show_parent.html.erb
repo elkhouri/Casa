@@ -1,6 +1,6 @@
 <%= render 'parent_form' if signed_in? %>
   <div class='page-header'>
-    <h3><%= @user.name %>'s Authorized Pickups</h3>
+    <h3>Hijos de <%= @user.name %></h3>
   </div>
   <% if @children.any? %>
     <div class='row'>

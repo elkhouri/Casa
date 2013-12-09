@@ -4,19 +4,16 @@
       <h4><%= student.name %></h4>
       <% if student.checked_in? %>
         <%= form_for [student, student.attendances.last] do |f| %>
-          <%= f.submit "Check Out", class: "btn btn-large btn-warning" %>
+          <%= f.submit "Salida", class: "btn btn-large btn-warning" %>
         <% end %>
       <% else %>
         <%= form_for [student, Attendance.new], html:{class:'form-horizontal'} do |f| %>
           <div class='row'>
-            <div class='col-sm-1'>
-              <label class='control-label'>Work</label>
-            </div>
             <div class='col-sm-offset-1 col-sm-5'>
               <%= collection_select(:student, :subject_id, Subject.all, :id, :name, {}, {class:'form-control'}) %>
             </div>
             <div class='col-sm-1'>
-              <%= f.submit "Check In", class: "btn btn-primary" %>
+              <%= f.submit "Facturar", class: "btn btn-primary" %>
             </div>
           </div>
         <% end %>

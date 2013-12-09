@@ -7,19 +7,19 @@
 </div>
 
 <ul class="nav nav-tabs nav-append-content" id='profile_tab'>
-  <li class='active'><a href='#profile' data-toggle="tab">Profile</a></li>
+  <li class='active'><a href='#profile' data-toggle="tab">Profile / Perfile</a></li>
   <% case @user.class.to_s %>
     <% when "Student" %>
-      <li><a href='#score_cards' data-toggle="tab">Score Cards</a></li>
-      <li><a href='#authorized' data-toggle="tab">Authorized Adults</a></li>
-      <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
-      <li><a href='#stats' data-toggle="tab">Statistics</a></li>
+      <li><a href='#score_cards' data-toggle="tab">Score Cards / Boleta de Calificaciones </a></li>
+      <li><a href='#authorized' data-toggle="tab">Authorized Adults / Padres</a></li>
+      <li><a href='#attendance' data-toggle="tab">Attendance/ Asistencia</a></li>
+      <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Volunteer" %>
-      <li><a href='#authorized' data-toggle="tab">Students</a></li>
-      <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
-      <li><a href='#stats' data-toggle="tab">Statistics</a></li>
+      <li><a href='#authorized' data-toggle="tab">Students / Estudiantes</a></li>
+      <li><a href='#attendance' data-toggle="tab">Attendance / Asistencia</a></li>
+      <li><a href='#stats' data-toggle="tab">Statistics / Estadística</a></li>
     <% when "Parent" %>
-      <li><a href='#authorized' data-toggle="tab">Children</a></li>
+      <li><a href='#authorized' data-toggle="tab">Children / Hijos</a></li>
   <% end %>
 </ul>
 
@@ -27,48 +27,48 @@
   <div class="tab-pane fade in active" id="profile">
     <% if not @user.grade.nil? %> 
     <div class='row'>
-    <div class='col-xs-1'>Grade: </div>
-    <div class='col-xs-11'> <%= @user.grade %> </div> 
+    <div class='col-xs-2'>Grade / Grado: </div>
+    <div class='col-xs-10'> <%= @user.grade %> </div> 
     </div> <% end %>
 
     <div class='row'>
-    <div class='col-xs-1'>ID: </div>
-    <div class='col-xs-11'><%= @user.ID_num %></div>
+    <div class='col-xs-2'>ID: </div>
+    <div class='col-xs-10'><%= @user.ID_num %></div>
     </div>
 
     <div class='row'>
-    <div class='col-xs-1'>Address: </div>
-    <div class='col-xs-11'><%= @user.address %></div>
+    <div class='col-xs-2'>Address / Direción: </div>
+    <div class='col-xs-10'><%= @user.address %></div>
     </div>
 
     <div class='row'>
-    <div class='col-xs-1'>Phone: </div>
-    <div class='col-xs-11'><%= @user.phone %></div>
+    <div class='col-xs-2'>Phone / Teléfono: </div>
+    <div class='col-xs-10'><%= @user.phone %></div>
     </div>
 
     <div class='row'>
-    <div class='col-xs-1'>Email: </div>
-    <div class='col-xs-11'><%= @user.email %></div>
+    <div class='col-xs-2'>Email / Correo Electrónico: </div>
+    <div class='col-xs-10'><%= @user.email %></div>
     </div>
 
     <% if not @user.session.nil? %> <div class='row'>
-    <div class='col-xs-1'>Session: </div>
-    <div class='col-xs-11'><%= @user.session %></div>
+    <div class='col-xs-2'>Session / Sesión: </div>
+    <div class='col-xs-10'><%= @user.session %></div>
     </div> <% end %>
 
     <% if not @user.specialization.nil? %> <div class='row'>
-    <div class='col-xs-2'>Specialization: </div>
+    <div class='col-xs-2'>Specialization / Especialización: </div>
     <div class='col-xs-10'><%= @user.specialization %></div>
     </div> <% end %>
 
     <% if not @user.interest.nil? %> <div class='row'>
-    <div class='col-xs-1'>Interests: </div>
-    <div class='col-xs-11'><%= @user.interest %></div>
+    <div class='col-xs-2'>Interests / Intereses: </div>
+    <div class='col-xs-10'><%= @user.interest %></div>
     </div> <% end %>
 
     <% if not @user.note.nil? %> <div class='row'>
-    <div class='col-xs-1'>Notes: </div>
-    <div class='col-xs-11'><%= @user.note %></div>
+    <div class='col-xs-2'>Notes / Notas: </div>
+    <div class='col-xs-10'><%= @user.note %></div>
     </div> <% end %>
     <%= link_to "Edit", edit_user_path , class:'btn btn-warning'%>
   </div>

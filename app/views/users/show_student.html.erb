@@ -14,10 +14,10 @@
       <% else %>
         <%= form_for [@user, Attendance.new] do |f| %>
           <div class='form-group'>
-            <label class='control-label'>Work Brought</label>
+            <label class='control-label'>Work Brought / Trabajo</label>
             <%= collection_select(:student, :subject_id, Subject.all, :id, :name, {}, {class:'form-control'}) %>
             </div>
-          <%= f.submit "Check In", class: "btn btn-large btn-primary" %>
+          <%= f.submit "Check In / Facturar", class: "btn btn-large btn-primary" %>
         <% end %>
       <% end %>
   </div>

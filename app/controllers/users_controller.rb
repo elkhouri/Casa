@@ -104,7 +104,7 @@ class UsersController < ApplicationController
 
         data_table.add_rows([[st.to_date, [st.hour,st.min,st.sec],[et.hour+1,et.min,et.sec]]])
       end
-      option = {curveType:'function', title: 'Arrival and Departure Times', width:1100
+      option = {curveType:'function', title: 'Arrival and Departure Times / La Horas de Llegada y Salida', width:1100
                 }
        return GoogleVisualr::Interactive::LineChart.new(data_table, option)
     end
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
         data_table.set_cell(i, 0, s.name)
         data_table.set_cell(i, 1, collection.select{|a| a[:subject_id] == s.id}.count)
       end
-      option = {title: 'Subjects', width:300
+      option = {title: 'Subjects / Temas', width:300
                 }
        return GoogleVisualr::Interactive::PieChart.new(data_table, option)
     end
@@ -137,7 +137,7 @@ class UsersController < ApplicationController
         data_table.set_cell(i, 0, d.dropoff.name)
         data_table.set_cell(i, 1, collection.select{|a| a[:dropoff_id] == d.dropoff.id}.count)
       end
-      option = {title: 'Who Dropped Off', width:300
+      option = {title: 'Who Dropped Off / Quien Bajar', width:300
                 }
        return GoogleVisualr::Interactive::PieChart.new(data_table, option)
     end
@@ -154,7 +154,7 @@ class UsersController < ApplicationController
         data_table.set_cell(i, 0, d.pickup.name)
         data_table.set_cell(i, 1, collection.select{|a| a[:dropoff_id] == d.pickup.id}.count)
       end
-      option = {title: 'Who Picked Up', width:300
+      option = {title: 'Who Picked Up / Quien Ligarse', width:300
                 }
        return GoogleVisualr::Interactive::PieChart.new(data_table, option)
     end   
