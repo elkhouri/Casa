@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title = @user.name
     @attendances = @user.attendances.all
+    attendances_chart(@attendances)
+
   end
   
   def score
@@ -82,5 +84,22 @@ class UsersController < ApplicationController
     
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+    
+    def attendances_chart(collection)
+      data_table = GoogleVisualr::DataTable.new
+      
+      data_table.new_column('date', 'Date' )
+      data_table.new_column('timeofday', 'Arrival Time')
+      data_table.new_column('timeofday', 'Departure Time')
+      
+      collection.each do |a|
+        st,et = a.dropoff_time.in_time_zone('America/Los_Angeles'), a.pickup_time.in_time_zone('America/Los_Angeles')
+
+        data_table.add_rows([[st.to_date, [st.hour,st.min,st.sec],[et.hour+1,et.min,et.sec]]])
+      end
+      option = {curveType:'function', title: 'Arrival and Departure Times', width:1000
+                }
+      @attendance_chart = GoogleVisualr::Interactive::LineChart.new(data_table, option)
     end
 end
