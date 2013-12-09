@@ -1,24 +1,93 @@
 <% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<div class='page-header'>
+  <h3>Sign up</h3>
+</div>
 
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for @user do |f| %>
       <%= render 'shared/error_messages' %>
+      <div class='row'>
+        <div class='form-group'>
+          <div class='col-md-2'><%= f.label :type, 'You are: ', class:'control-label'  %></div>
+          <div class='col-md-10'><%= f.select :type, [['Volunteer','Volunteer'],['Parent','Parent'],['Student','Student']], {}, class:'form-control' %></div>
+        </div>
+      </div>
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+      <div class='row'>
+        <div class='col-md-6'><div class='form-group'>
+          <%= f.label :name, class:'control-label'  %>
+          <%= f.text_field :name, class:'form-control' %>
+        </div></div>
 
-      <%= f.label :ID_num %>
-      <%= f.text_field :ID_num %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+        <div class='col-md-4'><div class='form-group'>
+          <%= f.label :ID_num, "ID", class:'control-label'  %>
+          <%= f.text_field :ID_num, class:'form-control' %>
+        </div></div>
+        
+        <div class='col-md-2'><div class='form-group'>
+          <%= f.label :grade, class:'control-label'  %>
+          <%= f.select :grade, Array.new(12){ |i| [i+1,i+1] }, {}, class:'form-control', disabled:true %>
+        </div></div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-md-6'><div class='form-group'>
+          <%= f.label :password, class:'control-label'  %>
+          <%= f.password_field :password, class:'form-control' %>
+        </div></div>
+        <div class='col-md-6'><div class='form-group'>
+          <%= f.label :password_confirmation, "Confirmation", class:'control-label'  %>
+          <%= f.password_field :password_confirmation, class:'form-control' %>
+        </div></div>
+      </div>
+      
+      <div class='row'>
+        <div class='col-md-6'><div class='form-group'>
+          <%= f.label :email, class:'control-label'  %>
+          <%= f.text_field :email, class:'form-control' %>
+        </div></div>
+        
+        <div class='col-md-6'><div class='form-group'>
+          <%= f.label :phone, class:'control-label'  %>
+          <%= f.text_field :phone, class:'form-control' %>
+        </div></div>
+      </div>
+      
+      <div class='form-group'>
+        <%= f.label :address, class:'control-label'  %>
+        <%= f.text_field :address, class:'form-control' %>
+      </div>
+      <fieldset id='V_fields'>
+        <div class='row'>
+          <div class='col-md-6'><div class='form-group'>
+            <%= f.label :interest, class:'control-label'  %>
+            <%= f.text_field :interest, class:'form-control' %>
+          </div></div>
+          
+          <div class='col-md-6'><div class='form-group'>
+            <%= f.label :specialization, class:'control-label'  %>
+            <%= f.text_field :specialization, class:'form-control' %>
+          </div></div>
+        </div>
+        <div class='form-group'>
+          <%= f.label :note, class:'control-label'  %>
+          <%= f.text_area :note, class:'form-control' %>
+        </div>
+      </fieldset>
+      <%= f.submit "Create my account", class: "btn btn-block btn-primary" %>
     <% end %>
   </div>
 </div>
+
+<script>
+  $('select#user_type').on('change', function() {
+    if($(this).val() != "Volunteer")
+      $('#V_fields').attr('disabled', true)
+    else $('#V_fields').attr('disabled', false)
+    
+    if($(this).val() != "Student")
+      $('#user_grade').attr('disabled', true)
+    else $('#user_grade').attr('disabled', false)
+  });
+</script>
