@@ -139,10 +139,10 @@
       var pickops = <%= raw @pickup_times %>
 
       var attendance_chart = $.jqplot('attendance_chart', [dropoffs, pickops], {
-        title:'Arrival and Departure Times / La Horas de Llegada y Salida',
+        title:'Arrival and Departure Times / Horas de Entrada y Salida',
         grid: {shadow:false},
         legend: { show:true, location: 'ne',xoffset: 52, },
-        series: [ {label:'Llegada'},{label:'Salida'}
+        series: [ {label:'Entrada'},{label:'Salida'}
         
         ],
         axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer},
@@ -153,7 +153,7 @@
       var subjects = <%= raw @subjects %>
       var subject_pie = jQuery.jqplot ('subject_chart', [subjects], 
       { 
-        title: 'Subjects / Temas',
+        title: 'Subjects / Materias',
         grid: {shadow:false},
         seriesDefaults: {
           renderer: jQuery.jqplot.PieRenderer, 
@@ -168,7 +168,7 @@
       var dropoffs= <%= raw @dropoffs %>
       var dropoff_pie = jQuery.jqplot ('dropoff_chart', [dropoffs], 
       { 
-        title: 'Who Dropped Off / Quien Bajar',
+        title: 'Who Dropped Off / Bajas',
         grid: {shadow:false},
         seriesDefaults: {
           renderer: jQuery.jqplot.PieRenderer, 
@@ -182,7 +182,7 @@
       var pickups= <%= raw @pickups %>
       var pickup_pie = jQuery.jqplot ('pickup_chart', [pickups], 
       { 
-        title: 'Who Picked Up / Quien Ligarse',
+        title: 'Who Picked Up / Quien Recogio',
         grid: {shadow:false},
         seriesDefaults: {
           renderer: jQuery.jqplot.PieRenderer, 
