@@ -1,15 +1,7 @@
 <% provide(:title, @title) %>
-
-<script src='https://www.google.com/jsapi'></script>
 <div class='page-header'>
   <h3>Statistics</h3>
 </div>
-<div class='row'>
-  <div class='col-md-6'>
-    <div class='chart' id='chart'></div>
-  </div>
-</div>
-<%= render_chart(@chart, 'chart') %>
 Total Number of Users: <%= User.count %><br>
 Total Number of Students: <%= Student.count %><br>
 Total Number of Parents: <%= Parent.count %><br>

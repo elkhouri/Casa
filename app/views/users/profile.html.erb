@@ -13,13 +13,14 @@
       <li><a href='#score_cards' data-toggle="tab">Score Cards</a></li>
       <li><a href='#authorized' data-toggle="tab">Authorized Adults</a></li>
       <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
+      <li><a href='#stats' data-toggle="tab">Statistics</a></li>
     <% when "Volunteer" %>
       <li><a href='#authorized' data-toggle="tab">Students</a></li>
       <li><a href='#attendance' data-toggle="tab">Attendance</a></li>
+      <li><a href='#stats' data-toggle="tab">Statistics</a></li>
     <% when "Parent" %>
       <li><a href='#authorized' data-toggle="tab">Children</a></li>
   <% end %>
-  <li><a href='#stats' data-toggle="tab">Statistics</a></li>
 </ul>
 
 <div class="tab-content">
@@ -101,8 +102,21 @@
   </div>
   
   <div class="tab-pane fade" id="stats">
-    <div class='chart' id='attendances_chart'></div>
-    <%= render_chart(@attendance_chart, 'attendances_chart') %>
+    <% if @user.is_a?(Student) or @user.is_a?(Volunteer) %>
+      <div class='chart' id='attendance_chart'></div>
+      <%= render_chart(@attendance_chart, 'attendance_chart') %>
+    <% end %>
+    <% if @user.is_a?(Student) %>
+      <div class='row'>
+        <div class='col-md-4'><div class='chart' id='subject_pie'></div></div>
+        <div class='col-md-4'><div class='chart' id='dropoff_pie'></div></div>
+        <div class='col-md-4'><div class='chart' id='pickup_pie'></div></div>
+        
+        <%= render_chart(@subject_pie, 'subject_pie') %>
+        <%= render_chart(@dropoff_pie, 'dropoff_pie') %>
+        <%= render_chart(@pickup_pie, 'pickup_pie') %>
+      </div>
+    <% end %>
   </div>
 </div>
 
