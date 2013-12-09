@@ -135,25 +135,8 @@
   $('.next-month').html('    <%= fa_icon "chevron-right" %></span>')
   $(function () {
     $("#profile_tab a#stats_tab").on('shown.bs.tab', function (e) {
-      <% @dropff = "["
-        @pickup = "[" 
-        @attendances.each do |a| 
-          @dropff << "['" << a.dropoff_time.in_time_zone('America/Los_Angeles').to_date.to_s << "','"if not a.dropoff_time.nil?
-          @dropff << a.dropoff_time.in_time_zone('America/Los_Angeles').to_s(:time) << "']," if not a.dropoff_time.nil?
-          @pickup << "['" << a.pickup_time.in_time_zone('America/Los_Angeles').to_date.to_s << "','"if not a.pickup_time.nil?
-          @pickup << a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) << "']," if not a.pickup_time.nil?
-        end 
-       @dropff << "]"
-       @pickup << "]"%>
-       
-      var dropoffs = <%= @dropff.html_safe %>
-      var pickops = <%= @pickup.html_safe %>
-      
-      <% @attendances.each do |a| 
-        puts a.pickup_time.in_time_zone('America/Los_Angeles').to_date if not a.pickup_time.nil?
-        puts a.pickup_time.in_time_zone('America/Los_Angeles').to_s(:time) if not a.pickup_time.nil?
-       end %>
-      
+      var dropoffs = <%= raw @dropoff_times %>
+      var pickops = <%= raw @pickup_times %>
 
       var attendance_chart = $.jqplot('attendance_chart', [dropoffs, pickops], {
         title:'Arrival and Departure Times / La Horas de Llegada y Salida',
@@ -167,7 +150,7 @@
                       tickOptions:{formatString:'%R'}}}
       });
       <% if @user.is_a?(Student) %>
-      var subjects=[<% Subject.all.each_with_index do |s,i| %>["<%= s.name %>",<%=@attendances.select{|a| a[:subject_id] == s.id}.count%>], <% end %>]
+      var subjects = <%= raw @subjects %>
       var subject_pie = jQuery.jqplot ('subject_chart', [subjects], 
       { 
         title: 'Subjects / Temas',
@@ -182,9 +165,7 @@
       })
       
       
-      var dropoffs=[<% @attendances.uniq{|x| x.dropoff_id}.first(3).each do |d| %>[
-      "<%=d.dropoff.name%>",
-      <%= @attendances.select{|a| a[:dropoff_id] == d.dropoff.id}.count%>], <%end %>]
+      var dropoffs= <%= raw @dropoffs %>
       var dropoff_pie = jQuery.jqplot ('dropoff_chart', [dropoffs], 
       { 
         title: 'Who Dropped Off / Quien Bajar',
@@ -198,9 +179,7 @@
         legend: { show:true, location: 'e' }
       })
       
-      var pickups=[<% @attendances.uniq{|x| x.pickup_id}.first(3).each do |d| %>[
-      "<%=d.pickup.name%>",
-      <%= @attendances.select{|a| a[:pickup_id] == d.pickup.id}.count%>], <%end %>]
+      var pickups= <%= raw @pickups %>
       var pickup_pie = jQuery.jqplot ('pickup_chart', [pickups], 
       { 
         title: 'Who Picked Up / Quien Ligarse',

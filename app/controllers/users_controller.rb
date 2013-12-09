@@ -6,9 +6,24 @@ class UsersController < ApplicationController
   def profile
     @user = User.find(params[:id])
     @title = @user.name
-    @attendances = @user.attendances.all
+    @attendances = @user.attendances.to_a
+    @pickup_times = @attendances.select{|a| not a.pickup_time.nil?}
+      .map{|x| [x.pickup_time.to_date.to_s,x.pickup_time.to_s(:time)]}
+      
+    @dropoff_times = @attendances.select{|a| not a.dropoff_time.nil?}
+      .map{|x| [x.dropoff_time.to_date.to_s,x.dropoff_time.to_s(:time)]}
+      
+    @subjects = Subject.all.map{|x| [x.name, @attendances.select{|a| a.subject_id == x.id}.count]}
+    
+    if @user.is_a?(Student)
+    @dropoffs = @attendances.uniq{|x| x.dropoff_id}.first(3)
+      .map{|x| [x.dropoff.name, @attendances.select{|a| a[:dropoff_id] == x.dropoff.id}.count]}
+      
+    @pickups = @attendances.uniq{|x| x.pickup_id}.first(3)
+      .map{|x| [x.pickup.name, @attendances.select{|a| a[:pickup_id] == x.pickup_id}.count]}
+    end
   end
-  
+
   def calendar
     respond_to do |format|
       format.js 'aa'
@@ -85,7 +100,7 @@ class UsersController < ApplicationController
     
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      redirect_to(root_url) and flash[:danger] = "You cannot do that" unless current_user?(@user) or current_user.is_a?(Admin)
     end
     
     def admin_user
