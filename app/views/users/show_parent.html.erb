@@ -1,6 +1,7 @@
 <%= render 'parent_form' if signed_in? %>
   <div class='page-header'>
     <h3>Hijos de <%= @user.name %></h3>
+    <%= link_to "Sign out / Cerrar Sesión ", signout_path, method: "delete", class:'btn btn-danger' %>
   </div>
   <% if @children.any? %>
     <div class='row'>
