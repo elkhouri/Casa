@@ -6,3 +6,22 @@ Total Number of Users: <%= User.count %><br>
 Total Number of Students: <%= Student.count %><br>
 Total Number of Parents: <%= Parent.count %><br>
 Total Number of Volunteers: <%= Volunteer.count %><br>
+<div id='chart1'></div>
+<script>
+  $(function () {
+    var stuff = <%= raw @times %>
+    var stuff2 = <%= raw @times2 %>
+    var stuff3 = <%= raw @times3 %>
+      
+    var attendance_chart = $.jqplot('chart1', [stuff, stuff2, stuff3], {
+    title:'Numbers',
+    grid: {shadow:false},
+    legend: { show:true, location: 'ne',xoffset: 52, },
+    series: [ {label:'Students'},{label:'Parents'},{label:'Volunteers'}
+    
+    ],
+    axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}}
+    });
+  
+  })
+</script>
